@@ -1,0 +1,107 @@
+/*@font-face {*/
+/*  font-face-name: Oswald;*/
+/*  src: url("../assets/fonts/Oswald-Medium.ttf");*/
+/*}*/
+[v-cloak] {
+  display: none;
+}
+::-webkit-scrollbar {
+  width: 0;
+}
+:root {
+  --background-color: var(--black);
+  --gray1: #202022;
+  --gray2: #404042;
+  --gray3: #606062;
+  --gray4: #808082;
+  --gray5: #A0A0A2;
+  --gray6: #C0C0C2;
+  --gray7: #E0E0E2;
+  --black: #000;
+  --white: #fff;
+  --red: #eb5757;
+  --orange: #f2994A;
+  --yellow: #f2c94c;
+  --green1: #219653;
+  --green2: #27AE60;
+  --blue1: #2f80ed;
+  --blue2: #2d9cdb;
+  --blue3: #56ccf2;
+  --purple1: #9b51e0;
+  --purple2: #bb6bd9;
+  --bk-s: 480px;
+  --bk-m: 720px;
+  --bk-l: 1280px;
+  --rem-size: 16px;
+  --logo-offset-x: 0;
+  --logo-offset-y: 0;
+  --vh: 0;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  letter-spacing: 0.05rem;
+}
+html,
+body {
+  position: absolute;
+  font-size: var(--rem-size);
+  background-color: var(--white);
+  height: 101%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+h1 {
+  font-size: 4rem;
+  line-height: 1.2;
+  font-weight: 900;
+}
+h2 {
+  font-size: 2rem;
+  line-height: 1.2;
+}
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+h3 {
+  font-size: 1rem;
+  line-height: 1rem;
+}
+a {
+  font-size: inherit;
+  line-height: inherit;
+  display: inline-block;
+  position: relative;
+  color: var(--gray7);
+  text-decoration: none;
+  word-break: keep-all;
+  padding: 1rem;
+  margin: -1rem;
+}
+p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+caption {
+  font-size: 0.5rem;
+  line-height: 0.5rem;
+}
+.images img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media only screen and (max-width: 480px) {
+  :root {
+    --rem-size: 12px;
+  }
+}
+.scrollbar-track {
+  display: none !important;
+}
+/*# sourceMappingURL=style.css.map */
