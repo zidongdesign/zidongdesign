@@ -1,8 +1,8 @@
 <template>
     <div class="qr-code-cover">
-        <img src="../assets/brand/qr-code.jpeg" alt="" class="qr-code">
-        <p v-if="language=='ZH'">桌面端页面正在准备中，请通过手机扫描二维码浏览</p>
-        <p v-else-if="language=='EN'">The desktop web page is being prepared, please scan the QR code on your mobile phone to browse</p>
+        <img src="../assets/brand/qr-code.png" alt="" class="qr-code">
+        <p v-if="language=='ZH'" >Oops... 桌面宽度的版本还在准备中，请扫描二维码在手机上浏览，或者<a @click="openNewWindow" class="interactive-l">打开一个特定尺寸的窗口</a></p>
+        <p v-else-if="language=='EN'">Oops... The desktop width version is under constration, scan the QR code to browse on your phone, or <a @click="openNewWindow" class="interactive-l">open a new window of a specific size</a></p>
     </div>
 </template>
 
@@ -10,6 +10,11 @@
     export default {
         name: "QRCodeCover",
         props:['language'],
+        methods:{
+            openNewWindow(){
+                window.open('index.html', 'newwindow', 'height=800, width=480, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no') 
+            }
+        }
 
     }
 </script>
@@ -22,7 +27,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 95;
+        z-index: 98;
         color: var(--white);
     }
     .qr-code{
@@ -39,8 +44,17 @@
         left: calc(50% - 12rem);
         text-align: center;
     }
+    .qr-code-cover a{
+        width: fit-content;
+        height: fit-content;
+        z-index: 96;
+        padding: 0.5rem;
+        margin: 1rem;
+        border: 1px rgba(255,255,255,1) solid;
+        cursor: default;
+    }
 
-    @media (max-width: 767px) {
+    @media (max-width: 768px) {
         .qr-code-cover{
             display: none;
         }

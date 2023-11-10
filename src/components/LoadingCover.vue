@@ -15,10 +15,10 @@
         <h1>
             {{fixedPercent}}
         </h1>
-        <div class="tips">
+        <!-- <div class="tips">
             <p>如加载缓慢, 请尝试切换 Wi-Fi 和移动数据</p>
             <p>Try switching Wi-Fi and mobile data if loading is too slow</p>
-        </div>
+        </div> -->
 
     </div>
 </template>
@@ -111,7 +111,7 @@
     h1{
         position: absolute;
         left: 50%;
-        top: 40%;
+        top: 50%;
         transform: translate(-50%,-50%);
         font-size: 16rem;
         color: var(--white);
@@ -124,10 +124,12 @@
     .tips{
         position: absolute;
         bottom: 4rem;
+        left: 50vw;
+        transform: translate(-50%,0);
         text-align: center;
         color: var(--white);
-        font-size: 0.75rem;
-        padding: 0 4rem;
+        font-size: 0.5rem;
+        padding: 0 1rem;
     }
     .tips p{
         margin-bottom: 1rem;

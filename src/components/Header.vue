@@ -2,13 +2,15 @@
     <div class="header">
         <div class="switchImg">
             <div class="circular">
-                <svg viewBox="0 0 100 100">
+                <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
+                <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
+                <!-- <svg viewBox="0 0 100 100">
                     <path d="M 0,50 a 50,50 0 1,1 0,1 z" id="circle" />
                     <text>
-                        <textPath xlink:href="#circle" style="font-size: 0.63rem" v-if="language=='ZH'">一 个 结 合 数 字 媒 体 技 术 打 造 品 牌、产 品 和 体 验 的 独 立 创 意 设 计 师</textPath>
-                        <textPath xlink:href="#circle" style="font-size: 0.49rem" v-else-if="language=='EN'">A CREATIVE DESIGNER BUILDING BRANDING, PRODUCT AND EXPERIENCE IN DIGITAL WAY</textPath>
+                        <textPath xlink:href="#circle" style="font-size: 0.69rem" v-if="language=='ZH'">一 个 结 合 数 字 媒 体 技 术 打 造 品 牌、产 品 和 体 验 的 创 意 设 计 师</textPath>
+                        <textPath xlink:href="#circle" style="font-size: 5.6px" v-else-if="language=='EN'">A CREATIVE DESIGNER WORKING ON BRANDING, PRODUCT AND EXPERIENCE IN DIGITAL WAY</textPath>
                     </text>
-                </svg>
+                </svg> -->
             </div>
         </div>
         <span class="headline" v-if="language=='ZH'">滚动浏览</span>
@@ -284,12 +286,12 @@
     .circular path { fill: none;}
     .circular {
         animation: rotation infinite 6.4s reverse;
-        width: 40vw;
-        height: 40vw;
+        width: 50vw;
+        height: 50vw;
         /*margin: 3em auto 0;*/
         position: absolute;
-        right: -20vw;
-        top: -20vw;
+        right: -25vw;
+        top: -25vw;
     }
     .circular svg { display: block; overflow: visible; }
 </style>
