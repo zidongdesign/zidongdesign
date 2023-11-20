@@ -73,7 +73,7 @@
                 if(this.p5) return;
                 // eslint-disable-next-line no-prototype-builtins
                 const sketch = s =>{
-                    let largeCursorSize = 16*2;
+                    let largeCursorSize = 16*4;
                     let smallCursorSize = 16;
                     let mouse = {
                         x:0,
@@ -239,7 +239,7 @@
         top: 0;
         left: 0;
         pointer-events: none;
-        background-color: rgba(255,255,255,0.2);
+        background-color: var(--foreground-dark-4);
     }
     #cursor-mask #cursor img {
         width: 0;

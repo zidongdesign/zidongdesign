@@ -1,15 +1,16 @@
 <template>
   <div id="app">
     <LoadingCover ref="loadingcover" :percent="totalLoadingPercent" ></LoadingCover>
-    <QRCodeCover :language="this.language"></QRCodeCover>
+    <!-- <QRCodeCover :language="this.language"></QRCodeCover> -->
     <MyCursor></MyCursor>
     <Logo></Logo>
     <Language @switchLanguage="switchLanguage" :language="this.language"></Language>
-    <DetailPage ref="detailpage" @allImagesLoaded = 'detailImagesLoaded' @closeDetailPage = 'closeDetailPage' :language='this.language' :projects = 'this.projects'> </DetailPage>
+    <DetailPage ref="detailpage" @allImagesLoaded = 'detailImagesLoaded' @closeDetailPage = 'closeDetailPage' :language='this.language' :projects = 'this.projects' @changeProject="changeProject"> </DetailPage>
     <Header ref="header" @updateLoadingPercent = "updateLogoLoadingPercent" :language="this.language"></Header>
     <Showcase ref="showcase" @loadingCoverHided="loadingCoverHided" @updateLoadingPercent = "updateShowcaseLoadingPercent"  @openDetailPage = "openDetailPage" @detailPageClosed = "detailPageClosed" :language='this.language' :projects = 'this.projects' ></Showcase>
     <Footer :language="this.language"> </Footer>
     <ShowcaseFilter ref="showcasefilter" :language="this.language" @changeFilter="changeFilter"></ShowcaseFilter>
+
   </div>
 </template>
 
@@ -20,14 +21,15 @@
   import LoadingCover from '@/components/LoadingCover';
   import Language from '@/components/Language';
   import Logo from '@/components/Logo';
+
   import DetailPage from '@/components/DetailPage';
   import Footer from '@/components/Footer';
   import ShowcaseFilter from '@/components/ShowcaseFilter';
-  import QRCodeCover from '@/components/QRCodeCover';
+  // import QRCodeCover from '@/components/QRCodeCover';
 
   import {gsap} from 'gsap'
   import {ScrollTrigger} from "gsap/ScrollTrigger";
-  import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+  import {ScrollToPlugin} from "gsap/ScrollToPlugin";
 
   gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
@@ -43,7 +45,7 @@
       DetailPage,
       Footer,
       ShowcaseFilter,
-      QRCodeCover,
+      // QRCodeCover,
     },
     data(){
       return{
@@ -79,6 +81,12 @@
     mounted(){
     },
     methods:{
+      changeProject(e){
+        this.$refs.showcase.closeDetailPage();
+          setTimeout(()=>{
+            this.$refs.showcase.openDetailPagebyID(e);
+          },1600)
+      },
       loadingCoverHided(){
         this.$refs.loadingcover.hide();
       },
@@ -147,8 +155,20 @@
     overflow-y: scroll; /* has to be scroll, not auto */
     overflow-x: hidden;
     -webkit-overflow-scrolling: auto; /* 用来控制元素在移动设备上是否使用滚动回弹效果 */
-    overflow-scrolling: auto;
     z-index: 1;
+  }
+  #app::after{
+    content:"";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(./assets/brand/noise.png);
+    z-index: 1000;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    pointer-events: none;
   }
   #app::-webkit-scrollbar{
     display: none; /* Chrome Safari */

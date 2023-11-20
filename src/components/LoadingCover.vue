@@ -15,10 +15,6 @@
         <h1>
             {{fixedPercent}}
         </h1>
-        <!-- <div class="tips">
-            <p>如加载缓慢, 请尝试切换 Wi-Fi 和移动数据</p>
-            <p>Try switching Wi-Fi and mobile data if loading is too slow</p>
-        </div> -->
 
     </div>
 </template>
@@ -104,7 +100,7 @@
         left: 0;
         font-size: 4rem;
         color: var(--gray3);
-        background: var(--background-color);
+        background: var(--background-dark);
         z-index: 99;
         overflow: hidden;
     }
@@ -114,12 +110,8 @@
         top: 50%;
         transform: translate(-50%,-50%);
         font-size: 16rem;
-        color: var(--white);
-        /*-webkit-text-stroke:4px var(--white);*/
-        /*-webkit-text-fill-color:transparent;*/
-        /*filter: url('#goo-1');*/
-        /*-webkit-filter: url('#goo-1');*/
-        /*font-family: Oswald;*/
+        color: var(--foreground-light-1);
+        font-family: NotoSerifSC-Black;
     }
     .tips{
         position: absolute;
@@ -127,7 +119,7 @@
         left: 50vw;
         transform: translate(-50%,0);
         text-align: center;
-        color: var(--white);
+        color: var(--foreground-light-1);
         font-size: 0.5rem;
         padding: 0 1rem;
     }

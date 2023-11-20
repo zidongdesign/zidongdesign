@@ -1,23 +1,20 @@
 <template>
-    <div class="header">
-        <div class="switchImg">
-            <div class="circular">
-                <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
-                <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
-                <!-- <svg viewBox="0 0 100 100">
-                    <path d="M 0,50 a 50,50 0 1,1 0,1 z" id="circle" />
-                    <text>
-                        <textPath xlink:href="#circle" style="font-size: 0.69rem" v-if="language=='ZH'">一 个 结 合 数 字 媒 体 技 术 打 造 品 牌、产 品 和 体 验 的 创 意 设 计 师</textPath>
-                        <textPath xlink:href="#circle" style="font-size: 5.6px" v-else-if="language=='EN'">A CREATIVE DESIGNER WORKING ON BRANDING, PRODUCT AND EXPERIENCE IN DIGITAL WAY</textPath>
-                    </text>
-                </svg> -->
-            </div>
+    <div class="header" id="header">
+        <div class="intro-locator" style="position: relative;width: 100%;height: 100%;">
+            <div class="intro">
+                <img :src="require('@/assets/brand/scroll-down.svg')" alt="" id="scroll-down-icon" style="position:absolute;width: 1.5rem;height: 3rem;right: 3rem;bottom: 4rem;">
+                <div class="switchImg">
+                    <!-- <div class="circular">
+                        <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
+                        <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
+                    </div> -->
+                </div>
+                <h1 v-if="language=='ZH'" style="color: var(--gray1);">我致力于打造产品、交互和品牌</h1>
+                <h1 v-else-if="language=='EN'" style="color: var(--gray1);">I craft product, interaction, and branding</h1>
         </div>
-        <span class="headline" v-if="language=='ZH'">滚动浏览</span>
-        <span class="headline" v-else-if="language=='EN'">Scroll to view</span>
+        </div>
         <canvas id="header-canvas"></canvas>
-<!--        <h3 v-if="language=='ZH'" class="clickToViewWorks interactive-s" @click="toggle">查看作品</h3>-->
-<!--        <h3 v-else-if="language=='EN'" class="clickToViewWorks interactive-s" @click="toggle">View My Works</h3>-->
+
     </div>
 
 </template>
@@ -105,6 +102,7 @@
                 window.addEventListener('resize',()=>{
                     this.onResize();
                 });
+                this.bindListener();
             },
             setLights() {
                 const ambientlight = new THREE.AmbientLight(0xffffff, 2)
@@ -121,13 +119,14 @@
                 this.createMesh(this.images[this.currentIndex],this.images[this.currentIndex+1]);
             },
             getBounds(target){
+
                 const { width, height, left, top } = target.getBoundingClientRect();
 
                 if (!this.sizes.equals(new THREE.Vector2(width, height))) {
                     this.sizes.set(width, height)
                 }
-                if (!this.offset.equals(new THREE.Vector2(left - window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2))) {
-                    this.offset.set(left - window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2)
+                if (!this.offset.equals(new THREE.Vector2(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2))) {
+                    this.offset.set(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2)
                 }
             },
             createMesh(image,hoverImage) {
@@ -179,7 +178,7 @@
                                 onComplete:()=>{
                                     setTimeout(()=>{
                                         this.isFramesNeedUpdate = false
-                                    },10);
+                                    },100);
                                 }
                             })
                         }
@@ -187,16 +186,18 @@
                 }
             },
             update(){
-                if(this.isFramesNeedUpdate){
-                    requestAnimationFrame(this.update);
-                    this.renderer.render(this.scene,this.camera);
-                    if(this.mesh){
-                        if(this.mesh.material.uniforms.u_time.value>10000){
-                            this.mesh.material.uniforms.u_time.value = 0;
-                        }
-                        this.mesh.material.uniforms.u_time.value += 0.03;
-                    }
+                if(!this.isFramesNeedUpdate){
+                    return;
                 }
+                requestAnimationFrame(this.update);
+                this.renderer.render(this.scene,this.camera);
+                if(this.mesh){
+                    if(this.mesh.material.uniforms.u_time.value>100){
+                        this.mesh.material.uniforms.u_time.value = 0;
+                    }
+                    this.mesh.material.uniforms.u_time.value += 0.03;
+                }
+
             },
             preload(imgs, allImagesLoadedCallback) {
                 let loadedCounter = 0;
@@ -226,6 +227,28 @@
                 this.mesh.material.uniforms.u_ratio.value = getRatio(this.sizes,this.images[this.currentIndex].image);
                 this.mesh.material.uniforms.u_hoverratio.value = getRatio(this.sizes,this.images[this.currentIndex].image);
             },
+            bindListener(){
+                window.addEventListener('mousemove', (ev) => {
+                    this.onMouseMove(ev);
+                });
+            },
+            onMouseMove(event) {
+                if(this.isMobile) return;
+                const tX = event.clientX;
+                const tY = event.clientY;
+                gsap.to(document.querySelector('.intro-locator'), {
+                    x: tX * 0.03,
+                    y: tY * 0.02,
+                    duration:0.8,
+                    ease:Power2.easeOut
+                });
+                gsap.to(document.querySelector('#header-canvas'), {
+                    x: - tX * 0.03,
+                    y: - tY * 0.02,
+                    duration:0.8,
+                    ease:Power2.easeOut
+                });
+            },
         }
     }
 </script>
@@ -235,63 +258,98 @@
         position: relative;
         width: 100%;
         height: 100%;
+        margin:0 auto;
         box-sizing: border-box;
         z-index: 1;
-        background-color: var(--white);
+        background-color: var(--background-light);
         overflow: hidden;
+        padding: 0;
+        margin: 0;
     }
 
     .switchImg {
         position: absolute;
         width: 60vw;
-        height:60vw;
-        left: 10vw;
-        bottom: 40vw;
-        transform: translate(0%,0%);
+        height: 60vw;
+        max-width: 480px;
+        max-height: 480px;
+        left: 50%;
+        bottom: -15vh;
+        transform: translate(-75%,0);
         z-index: 1;
         pointer-events: none;
     }
-    .headline {
+
+    .intro{
+        width: 60vw;
+        height: 60vw;
+        max-width: 480px;
+        max-height: 480px;
         position: absolute;
-        font-size: 1rem;
         left: 50%;
-        bottom: 2rem;
-        transform: translate(-50%,0%);
-        max-width: 40rem;
-        padding: 1rem;
-        width: 80%;
-        box-sizing: content-box;
-        text-align: center;
-        mix-blend-mode: difference;
-        color: var(--white);
-        pointer-events: none;
+        top: 50%;
+        transform: translate(-50%,-60%);
+        border: 1px solid rgba(0,0,0,0.5);
+        padding: 2rem;
     }
+    .intro h1{
+        font-size: 2rem;
+    }
+
     #header-canvas {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -1;
+        z-index: 1;
         pointer-events: none;
     }
+
     @keyframes rotation {
        0%{
-           transform: rotate(0deg);
+           transform: rotate(0deg) translate(50%,-50%);
+           transform-origin: 100% 0%;
        }
         100%{
-            transform: rotate(360deg);
+            transform: rotate(360deg) translate(50%,-50%);
+            transform-origin: 100% 0%;
         }
     }
+    @keyframes scroll-down {
+        0%{
+            transform: translate(0,0);
+            opacity: 0.25;
+        }
+        33%{
+            transform: translate(0,1rem);
+            opacity: 1;
+        }
+        50%{
+            transform: translate(0,1rem);
+            opacity: 1;
+        }
+        100%{
+            transform: translate(0,0);
+            opacity: 0.25;
+        }
+    }
+
     .circular path { fill: none;}
     .circular {
         animation: rotation infinite 6.4s reverse;
         width: 50vw;
         height: 50vw;
+        max-width: 384px;
+        max-height: 384px;
         /*margin: 3em auto 0;*/
         position: absolute;
-        right: -25vw;
-        top: -25vw;
+        right: 0;
+        top:  0;
     }
     .circular svg { display: block; overflow: visible; }
+
+    #scroll-down-icon{
+        animation: scroll-down infinite 2s;
+    }
 </style>

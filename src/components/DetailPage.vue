@@ -1,38 +1,29 @@
 <template>
     <div class="details-page">
-        <div class="back-button interactive-l" @click="closeDetailPage">
-<!--            <img src="../assets/icon-close.svg" alt="">-->
-            <h3 v-if="language=='ZH'" class="back-words">返回</h3>
-            <h3 v-else-if="language=='EN'" class="back-words">Back</h3>
+        <div class="changing-project-cover"></div>
+        <div class="back-button interactive-l h-stack" @click="closeDetailPage">
+            <img :src="require('@/assets/brand/back.svg')" alt="" style="width: 1rem; height: 1rem;">
+            <p v-if="language=='ZH'" class="back-words">返回</p>
+            <p v-else-if="language=='EN'" class="back-words">Back</p>
         </div>
         <div class="detail-wrapper">
             <div class="detail-container" id="detail-container">
                 <div class="intro-wrapper">
-                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters">
-                        <defs>
-                            <filter id="goo-3">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="0" result="blur"></feGaussianBlur>
-                                <feColorMatrix in="blur" mode="matrix" values="	1 0 0 0 0
-																			0 1 0 0 0
-																			1 0 1 0 0
-																			0 0 0 15 -8" result="goo"></feColorMatrix>
-                                <feComposite in="SourceGraphic" in2="goo" operator="atop"></feComposite>
-                            </filter>
-                        </defs>
-                    </svg>
                     <div class="loading-bar">
                         <div class="loaded-bar"></div>
                     </div>
                     <div class="percent-scroll">
                         <h2 class="percent">{{fixedPercent}}</h2>
-                        <h3 v-if="language=='ZH'" class="scroll">滚动浏览更多</h3>
-                        <h3 v-else-if="language=='EN'" class="scroll">SCROLL TO VIEW MORE</h3>
+                        <p v-if="language=='ZH'" class="scroll">滚动浏览</p>
+                        <p v-else-if="language=='EN'" class="scroll">Scroll to view</p>
                     </div>
                 </div>
                 <div class="content">
-                    <div v-if="language=='ZH'" :is="projectContent" :period = 'this.period' :category = 'this.category.ZH' :title='this.title.ZH' :language='this.languageDetailsPage'></div>
-                    <div v-else-if="language=='EN'" :is="projectContent" :period = 'this.period' :category = 'this.category.EN' :title='this.title.EN' :language='this.languageDetailsPage'></div>
+                    <div v-if="language=='ZH'" :is="projectContent" :period = 'this.period' :category = 'this.category.ZH' :title='this.title.ZH' :skills="this.skills.ZH" :tools="this.tools.EN" :language='this.languageDetailsPage' ></div>
+                    <div v-else-if="language=='EN'" :is="projectContent" :period = 'this.period' :category = 'this.category.EN' :title='this.title.EN' :skills="this.skills.EN" :tools="this.tools.EN" :language='this.languageDetailsPage'></div>
+                    <RelatedProject :relatedProjectsID="this.relatedID" :language="this.language" @changeProject="changeProject" class="related-project"></RelatedProject>
                 </div>
+
             </div>
         </div>
         <div class="details-background"></div>
@@ -71,7 +62,6 @@
                 duration:0,
             });
 
-            // window.addEventListener('popstate',this.closeDetailPage());
         },
         computed:{
             detailsImages: function () {
@@ -89,11 +79,24 @@
             category:function () {
                 return this.projects[this.preloadIndex].category;
             },
+            skills:function(){
+                return this.projects[this.preloadIndex].skills;
+            },            
+            tools:function(){
+                return this.projects[this.preloadIndex].tools;
+            },
             isMobile : function () {
                 return window.matchMedia('(max-width: 767px)').matches
             },
             languageDetailsPage :function () {
                 return this.language
+            },
+            relatedID:function(){
+                if(this.projects[this.preloadIndex].relatedID){
+                    return this.projects[this.preloadIndex].relatedID;
+                }else{
+                    return [0]
+                }
             }
         },
         watch:{
@@ -185,6 +188,17 @@
                     }
                 });
                 this.projectContent = this.projects[this.preloadIndex].details;
+                document.querySelector('.related-project').style.display = 'block';
+            },
+            changeProject(e){
+                gsap.to('.changing-project-cover',{
+                    opacity:1,
+                    duration:0.2,
+                    onComplete:()=>{
+                        this.$emit('changeProject',e);
+                        this.closeDetailPage()
+                    }
+                });
             },
             closeDetailPage(){
                 this.$emit('closeDetailPage');
@@ -216,6 +230,7 @@
                         document.querySelector('.detail-wrapper').style.scrollTop = 0;
                         document.querySelector('.detail-wrapper').style.display = 'none';
                         document.querySelector('.scroll').style.opacity = 0;
+                        document.querySelector('.related-project').style.display = 'none';
                     }
                 });
             },
@@ -276,7 +291,6 @@
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* IE 10+ */
         -webkit-overflow-scrolling: auto; /* 用来控制元素在移动设备上是否使用滚动回弹效果 */
-        overflow-scrolling: auto;
     }
     .detail-wrapper::-webkit-scrollbar{
         display: none; /* Chrome Safari */
@@ -308,7 +322,7 @@
         transform: translate(-50%,0);
         bottom: 1rem;
         font-size: 2rem;
-        color: var(--white);
+        color: var(--foreground-light-1);
         opacity: 0;
         z-index: 2;
         /*mix-blend-mode:difference;*/
@@ -320,13 +334,13 @@
         transform: translate(-50%,0);
         bottom: 1rem;
         font-size: 1rem;
-        color: var(--white);
+        color: var(--foreground-light-1);
         opacity: 0;
         z-index: 2;
         /*mix-blend-mode:difference;*/
     }
     .content{
-        /*background: var(--background-color);*/
+        /*background: var(--background-dark);*/
         width: 100%;
         font-size: 0;
         box-sizing: border-box;
@@ -334,34 +348,33 @@
         isolation: isolate;
     }
     .back-button{
-        /*background-color: var(--background-color);*/
+        /*background-color: var(--background-dark);*/
         position: fixed;
         top: 2rem;
-        left: calc(50% - 2.5rem);
-        width: 4rem;
-        height: 1rem;
+        left: 10rem;
         z-index: 96;
-        padding: 0.5rem;
-        border: 1px rgba(255,255,255,1) solid;
+        border-left: 1px var(--foreground-light-4) solid;
         mix-blend-mode:difference;
+        color: var(--foreground-light-2);
+        width: fit-content;
+        padding: 0.25rem 1rem;
+        justify-content: center;
+        align-items: center;
+        height: 2rem;
+        box-sizing: border-box;
     }
     .back-words{
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        font-size: 1rem;
-        padding: 1rem;
-        color: var(--white);
+        color: var(--foreground-light-2);
         z-index: 2;
         mix-blend-mode:difference;
         pointer-events: none;
         word-break: keep-all;
+        padding-bottom: 2px;
     }
     .details-background {
         width: 100%;
         height: 100%;
-        background: var(--background-color);
+        background: var(--background-dark);
         opacity: 0;
         position: fixed;
         left: 0;
@@ -376,13 +389,23 @@
         position: fixed;
         bottom: 6rem;
         left: 10%;
-        background: rgba(255,255,255,0.2);
+        background: var(--foreground-dark-2);
         /*mix-blend-mode:difference;*/
     }
     .loaded-bar{
         width: 0;
         height: 1px;
-        background: #fff;
+        background: var(--background-light);
     }
 
+    .changing-project-cover{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: var(--background-dark);
+        top: 0;
+        opacity: 0;
+        z-index: 100;
+        pointer-events: none;
+    }
 </style>

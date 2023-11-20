@@ -21,14 +21,14 @@
 
 <style scoped>
     .qr-code-cover{
-        background: var(--background-color);
+        background: var(--background-dark);
         width: 100vw;
         height: 100%;
         position: fixed;
         top: 0;
         left: 0;
         z-index: 98;
-        color: var(--white);
+        color: var(--foreground-light-1);
     }
     .qr-code{
         width: 8rem;
@@ -50,7 +50,7 @@
         z-index: 96;
         padding: 0.5rem;
         margin: 1rem;
-        border: 1px rgba(255,255,255,1) solid;
+        border: 1px var(--foreground-light-1) solid;
         cursor: default;
     }
 

@@ -1,14 +1,16 @@
 <template>
     <div class="showcase-filter">
-        <div class="showcase-filter-item selected interactive-s" @click="changeFilter">
-            <span v-if="language == 'ZH'">全部</span>
-            <span v-else-if="language == 'EN'">All</span>
+        <div class="wrapper">
+            <div class="showcase-filter-item selected interactive-l all" @click="changeFilter">
+                <span v-if="language == 'ZH'">全部</span>
+                <span v-else-if="language == 'EN'">All</span>
+            </div>
+            <div class="showcase-filter-item interactive-l" v-for="item in this.categories" :key = "item.id" @click="changeFilter">
+                <span v-if="language == 'ZH'">{{item.ZH}}</span>
+                <span v-else-if="language == 'EN'">{{item.EN}}</span>
+            </div>
+            <div class="filter-selected-bar"></div>
         </div>
-        <div class="showcase-filter-item interactive-s" v-for="item in this.categories" :key = "item.id" @click="changeFilter">
-            <span v-if="language == 'ZH'">{{item.ZH}}</span>
-            <span v-else-if="language == 'EN'">{{item.EN}}</span>
-        </div>
-        <div class="filter-changing-cover"></div>
     </div>
 </template>
 
@@ -26,7 +28,7 @@
             }
         },
         mounted(){
-            gsap.set('.filter-changing-cover',{
+            gsap.set('.filter-selected-bar',{
                 left: document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().left,
                 width:document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().width,
             })
@@ -46,13 +48,24 @@
                 const index = Array.from(e.target.parentElement.children).indexOf(e.target);
                 document.querySelector('.showcase-filter-item.selected').classList.remove('selected');
                 e.target.classList.add('selected');
-                gsap.to('.filter-changing-cover',{
+                gsap.to('.filter-selected-bar',{
                     left: document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().left,
                     width:document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().width,
                     duration:0.4,
                 });
                 this.categorySelectedIndex = index;
                 this.$emit('changeFilter',this.categorySelectedIndex);
+            },
+            resetFilter(){
+                document.querySelector('.showcase-filter-item.selected').classList.remove('selected');
+                document.querySelector('.showcase-filter-item.all').classList.add('selected');
+                gsap.to('.filter-selected-bar',{
+                    left: document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().left,
+                    width:document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().width,
+                    duration:0.4,
+                });
+                this.categorySelectedIndex = 0;
+                this.$emit('changeFilter',0);
             }
         },
         props:['language']
@@ -65,20 +78,25 @@
         width: 100%;
         height: 4rem;
         vertical-align: center;
-        border-top: 1px rgba(255,255,255,0.2) solid;
+        border-top: 1px var(--foreground-light-4) solid;
         bottom: 0;
         z-index: 97;
-        background-color: black;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
+        background-color: var(--background-dark);
         padding: 0 2rem;
         transform: translateY(100%);
         box-sizing: border-box;
     }
+    .wrapper {
+        width: 100%;
+        max-width: 768px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 0 auto;
+    }
     .showcase-filter-item{
-        color:white;
+        color:var(--foreground-light-1);
         display: inline-block;
         text-align: center;
         flex: none;
@@ -92,16 +110,17 @@
     .showcase-filter-item.selected{
         opacity: 1;
     }
-    .filter-changing-cover{
+    .filter-selected-bar{
         position: absolute;
         bottom: calc(4rem - 2px);
         height: 2px;
-        background-color: white;
+        background-color: var(--background-light);
     }
     .showcase-filter-item span{
-        color:white;
+        color:var(--foreground-light-1);
         display: inline-block;
         text-align: center;
         pointer-events: none;
+        padding: 0 1rem;
     }
 </style>

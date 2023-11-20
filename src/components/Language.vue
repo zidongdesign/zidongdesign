@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="language interactive-s" @click="switchLanguage">
-            <span style="margin-right: 0.5rem;opacity: 1" id="EN">EN</span>
+        <div class="language interactive-l" @click="switchLanguage">
+            <span style="opacity: 1" id="EN">EN</span>
             <span style="opacity: 0.5" id="ZH">中文</span>
         </div>
         <div class="language-cover"></div>
@@ -77,22 +77,25 @@
 <style scoped>
     .language{
         position: fixed;
-        right: 1rem;
-        top: 1rem;
-        color: var(--white);
+        right: 0rem;
+        top: 0rem;
+        color: var(--foreground-light-1);
         z-index: 97;
-        padding: 1rem;
+        padding: 2rem;
         font-size: 1rem;
         height: 2rem;
         text-align: center;
         line-height: 2rem;
-        mix-blend-mode:difference
+        mix-blend-mode:difference;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
     }
     .language-cover{
         position: fixed;
         width: 100vw;
         height: 100vh;
-        background: var(--background-color);
+        background: var(--background-dark);
         top: 0;
         opacity: 0;
         z-index: 100;
@@ -100,6 +103,7 @@
     }
     span{
         transition: 0.4s ease-in-out;
+        display: inline-block;
         pointer-events: none;
     }
 </style>

@@ -1,19 +1,6 @@
 <template>
     <div class="showcase">
-<!--        <ScrollBar :scroll-y="scrollY" ref="scrollbar"></ScrollBar>-->
         <div class="showcase-wrapper" @scroll="onShowcaseWrapperScroll">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg-filters" style="position: absolute">
-                <defs>
-                    <filter id="goo-2">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="0" result="blur"></feGaussianBlur>
-                        <feColorMatrix in="blur" mode="matrix" values="	1 0 0 0 0
-																			0 1 0 0 0
-																			1 0 1 0 0
-																			0 0 0 15 -8" result="goo"></feColorMatrix>
-                        <feComposite in="SourceGraphic" in2="goo" operator="atop"></feComposite>
-                    </filter>
-                </defs>
-            </svg>
             <div class="showcase-container" id="showcase-container" @touchmove="onShowcaseContainerTouchMove">
                 <div class="showcase-figure" v-for="item in projects" :key = "item.id">
                     <div
@@ -29,8 +16,8 @@
                     <div class="title-content">
                         <h1 v-if="language == 'ZH'">{{item.title.ZH}}</h1>
                         <h1 v-else-if="language == 'EN'">{{item.title.EN}}</h1>
-                        <h2 v-if="language == 'ZH'">{{item.category.ZH}}</h2>
-                        <h2 v-if="language == 'EN'">{{item.category.EN}}</h2>
+                        <p v-if="language == 'ZH'">{{item.category.ZH}}</p>
+                        <p v-if="language == 'EN'">{{item.category.EN}}</p>
                     </div>
                     <div class="hover-box"></div>
                 </div>
@@ -46,7 +33,6 @@
     import vertexShader from '../glsl/vertexShader.glsl'
     import fragmentShader from '../glsl/trippyShader.glsl'
     import {getRatio,map} from '@/utils/utils'
-    // import ScrollBar from '@/components/ScrollBar'
     import {ScrollTrigger} from "gsap/ScrollTrigger"
     import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -101,11 +87,10 @@
         components:{
         },
         mounted(){
+            
             for (let i=0;i< this.projects.length;i++){
                 this.getBounds(document.querySelector('.showcase-image'));
                 gsap.set(document.querySelectorAll('.title-content')[i],{
-                    // x: this.offset.x -this.delta.x,
-                    // y: this.offset.y + this.delta.y,
                     x:-this.delta.x,
                     y:this.delta.y,
                 });
@@ -213,6 +198,95 @@
                 this.meshes.push(mesh);
                 this.scene.add(mesh);
             },
+            openDetailPagebyID(e){
+                if(!this.isOpenDetailPage){
+                    document.querySelector('.detail-wrapper').style.display = 'block';
+                    document.querySelector('.detail-wrapper').style.scrollTop = 0;
+                    this.isOpenDetailPage = true;
+                    const targetID = e;
+                    const index = this.projects.findIndex(item => item.id === targetID);
+                    this.clickTargetIndex = index;
+                    this.openProjectId = e;
+                    this.hideTitle();
+                    const newBound = {
+                        x:window.innerWidth * 1.05,
+                        y:window.innerHeight * 1.05
+                    };
+                    const newRatio = getRatio(newBound,this.images[this.clickTargetIndex].image);
+                    gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_hoverratio.value,{
+                        x:newRatio.x,
+                        y:newRatio.y,
+                        ease:Power2.easeInOut,
+                        duration:0.8,
+                    });
+                    gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_ratio.value,{
+                        x:newRatio.x,
+                        y:newRatio.y,
+                        ease:Power2.easeInOut,
+                        duration:0.8,
+                    });
+                    gsap.to('.showcase-filter',{
+                        yPercent:0,
+                        duration:0.2,
+                    })
+                    gsap.to('#app',{
+                        scrollTo:document.querySelectorAll('.showcase-figure')[this.clickTargetIndex],
+                        duration:0.4,
+                        ease:Power2.easeInOut,
+                        onComplete:()=>{
+                            document.querySelector('.showcase').classList.remove('show');
+                        }
+                    });
+                    gsap.to(document.querySelectorAll('.showcase-image')[this.clickTargetIndex],{
+                        width:window.innerWidth,
+                        height:window.innerHeight,
+                        left:0,
+                        top:0,
+                        duration:0,
+                        onComplete:()=>{
+                            this.getBounds(document.querySelectorAll('.showcase-image')[this.clickTargetIndex]);
+                            gsap.to(this.meshes[this.clickTargetIndex].scale,{
+                                x:this.sizes.x,
+                                y:this.sizes.y,
+                                duration:0.8,
+                                ease:Power2.easeInOut,
+                                onComplete:()=>{
+                                    gsap.to('.changing-project-cover',{
+                                        opacity:0,
+                                        duration:0.4,
+                                    });
+                                    gsap.to(('.detail-wrapper'),{
+                                        opacity: 1,
+                                        scrollTo:0,
+                                    });
+                                    document.querySelector('.percent').style.opacity = 1;
+                                    this.$emit('openDetailPage',this.openProjectId);
+                                    gsap.to('.back-button',{
+                                        y:0,
+                                        duration:0.4,
+                                        ease:Power2.easeInOut,
+                                    });
+                                }
+                            });
+                            gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_res.value,{
+                                x:window.innerWidth,
+                                y:window.innerHeight,
+                                duration:0.8,
+                            });
+
+                        }
+                    });
+                    gsap.to(this.u_offset, {
+                        x: 0,
+                        y: 0,
+                        duration:0.8,
+                    });
+                    gsap.to('.hover-box',{
+                        opacity:0,
+                        duration:0.4,
+                    });
+                }
+            },
             openDetailPage(e){
                 if(!this.isOpenDetailPage){
                     document.querySelector('.detail-wrapper').style.display = 'block';
@@ -226,15 +300,17 @@
                         y:window.innerHeight * 1.05
                     };
                     const newRatio = getRatio(newBound,this.images[this.clickTargetIndex].image);
-                    gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_hoverratio.value,0.8,{
+                    gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_hoverratio.value,{
                         x:newRatio.x,
                         y:newRatio.y,
-                        ease:Power2.easeInOut
+                        ease:Power2.easeInOut,
+                        duration:0.8,
                     });
-                    gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_ratio.value,0.8,{
+                    gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_ratio.value,{
                         x:newRatio.x,
                         y:newRatio.y,
-                        ease:Power2.easeInOut
+                        ease:Power2.easeInOut,
+                        duration:0.8,
                     });
                     gsap.to('#app',{
                         scrollTo:document.querySelectorAll('.showcase-figure')[this.clickTargetIndex],
@@ -244,7 +320,7 @@
                             gsap.to('.showcase-filter',{
                                 yPercent:0,
                                 duration:0.2,
-                            })
+                            });
                             document.querySelector('.showcase').classList.remove('show');
                         }
                     });
@@ -283,9 +359,10 @@
 
                         }
                     });
-                    gsap.to(this.u_offset, 0.8, {
+                    gsap.to(this.u_offset, {
                         x: 0,
-                        y: 0
+                        y: 0,
+                        duration:0.8,
                     });
                     gsap.to('.hover-box',{
                         opacity:0,
@@ -300,15 +377,17 @@
                     y:parseFloat(window.getComputedStyle(document. documentElement)["fontSize"])*24,
                 };
                 const newRatio = getRatio(newBound,this.images[this.clickTargetIndex].image);
-                gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_hoverratio.value,0.8,{
+                gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_hoverratio.value,{
                     x:newRatio.x,
                     y:newRatio.y,
-                    ease:Power2.easeInOut
+                    ease:Power2.easeInOut,
+                    duration:0.8,
                 });
-                gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_ratio.value,0.8,{
+                gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_ratio.value,{
                     x:newRatio.x,
                     y:newRatio.y,
-                    ease:Power2.easeInOut
+                    ease:Power2.easeInOut,
+                    duration:0.8,
                 });
                 gsap.to(document.querySelectorAll('.showcase-image')[this.clickTargetIndex],{
                     duration:0.8,
@@ -334,6 +413,8 @@
                         });
                         this.isHovering = false;
                         this.isOpenDetailPage = false;
+                        this.clickTargetIndex=0;
+                        this.openProjectId=0,
                         gsap.to('.showcase-filter',{
                             yPercent:-100,
                             duration:0.2
@@ -459,6 +540,7 @@
                     })
                 })
             },
+
             /*Event
             --------------------------------*/
             bindListener(){
@@ -491,9 +573,10 @@
                 if(this.isMobile) return;
                 const tX = event.clientX;
                 const tY = event.clientY;
-                gsap.to(this.mouse, 0.8, {
+                gsap.to(this.mouse, {
                     x: tX,
                     y: tY,
+                    duration:0.8,
                     onUpdate: () =>{
                         if(!this.isOpenDetailPage){
                             this.u_offset.x = (tX - this.mouse.x) * 0.0001;
@@ -508,55 +591,62 @@
                 if(!this.isOpenDetailPage){
                     const scrollValue = -document.querySelector('.showcase').getBoundingClientRect().top / document.querySelector('.showcase-figure').getBoundingClientRect().height;
                     this.inViewportTargetIndex = parseInt(scrollValue + 0.5);
+
+                    if(this.inViewportTargetIndex > this.projects.length - 0.5){
+                        return
+                    }
                     if(scrollValue % 1 > 0.75 || (scrollValue % 1 < 0.25 && scrollValue % 1 > -0.25)){
                         gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
                             opacity:1,
                             duration:0.4,
                         })
-                    }else {
+                    }else{
                         gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
-                            opacity:0,
+                            opacity:0.4,
                             duration:0.4,
                         })
                     }
-                }
-                if(document.querySelector('.showcase').getBoundingClientRect().top < window.innerHeight - 100 &&
-                    document.querySelector('.showcase').getBoundingClientRect().height + document.querySelector('.showcase').getBoundingClientRect().top > window.innerHeight - 100
-                ){
-                    if(!document.querySelector('.showcase').classList.contains('show')){
-                        document.querySelector('.showcase').classList.add('show');
-                        gsap.to('.showcase-filter',{
-                            yPercent:-100,
-                            duration:0.2,
-                        })
+
+                    if(document.querySelector('.showcase').getBoundingClientRect().top < window.innerHeight - 100 &&
+                    document.querySelector('.showcase').getBoundingClientRect().height + document.querySelector('.showcase').getBoundingClientRect().top > window.innerHeight - 100){
+                        if(!document.querySelector('.showcase').classList.contains('show')){
+                            document.querySelector('.showcase').classList.add('show');
+                            gsap.to('.showcase-filter',{
+                                yPercent:-100,
+                                duration:0.2,
+                            })
+                        }
                     }
-                }
-                if(document.querySelector('.showcase').getBoundingClientRect().top > window.innerHeight - 100){
-                    if(document.querySelector('.showcase').classList.contains('show')){
-                        document.querySelector('.showcase').classList.remove('show');
-                        gsap.to('.showcase-filter',{
-                            yPercent:0,
-                            duration:0.2,
-                        })
+
+                    if(document.querySelector('.showcase').getBoundingClientRect().top > window.innerHeight - 100){
+                        if(document.querySelector('.showcase').classList.contains('show')){
+                            document.querySelector('.showcase').classList.remove('show');
+                            gsap.to('.showcase-filter',{
+                                yPercent:0,
+                                duration:0.2,
+                            })
+                        }
                     }
-                }
-                if(document.querySelector('.showcase').getBoundingClientRect().height + document.querySelector('.showcase').getBoundingClientRect().top < window.innerHeight - 100){
-                    if(document.querySelector('.showcase').classList.contains('show')){
-                        document.querySelector('.showcase').classList.remove('show');
-                        gsap.to('.showcase-filter',{
-                            yPercent:0,
-                            duration:0.2,
-                        })
+
+                    if(document.querySelector('.showcase').getBoundingClientRect().height + document.querySelector('.showcase').getBoundingClientRect().top < window.innerHeight - 100){
+                        if(document.querySelector('.showcase').classList.contains('show')){
+                            document.querySelector('.showcase').classList.remove('show');
+                            gsap.to('.showcase-filter',{
+                                yPercent:0,
+                                duration:0.2,
+                            })
+                        }
                     }
                 }
                 if(this.isMobile){
                     this.scrollY = document.querySelector('.showcase').getBoundingClientRect().top;
-                    gsap.to(this.mouse, 0.8, {
+                    gsap.to(this.mouse,{
                         y: this.scrollY,
+                        duration:0.8,
                         onUpdate: () =>{
                             if(!this.isOpenDetailPage){
-                                this.u_offset.y = (this.mouse.y - this.scrollY)  * 0.0003;
-                                this.u_offset.x = (this.mouse.y - this.scrollY)  * 0.0004;
+                                this.u_offset.y = (this.mouse.y - this.scrollY)  * 0.0001;
+                                this.u_offset.x = (this.mouse.y - this.scrollY)  * 0.0001;
                                 this.delta.y = -(this.mouse.y - this.scrollY) * 0.1;
                                 this.delta.x = -(this.mouse.y - this.scrollY) * 0.2;
                             }
@@ -607,7 +697,7 @@
     .showcase {
         width: 100vw;
         position: relative;
-        background-color: var(--background-color);
+        background-color: var(--background-dark);
         z-index: 1;
     }
     .showcase-wrapper{
@@ -651,29 +741,33 @@
         position: relative;
     }
     .title-content {
-        display: block;
-        width: 100%;
+        width: 20rem;
         height: 8rem;
         line-height: 8rem;
-        top: calc(50% - 4rem);
-        margin:auto 0;
+        left: calc(50% - 9rem);
+        bottom: calc(50% - 11rem);
         position: absolute;
-        color: #fff;
+        margin: 0 auto;
+        color: #var(--foreground-dark-1);
         opacity: 1;
         font-size: 2rem;
         pointer-events: none;
-        text-align: center;
+        text-align: left;
         will-change: transform;
         display:flex;
-        align-items:center;
-        justify-content:center;
+        align-items:left;
+        justify-content:flex-end;
         flex-direction:column;
+        z-index: 2;
+        padding-bottom: 2rem;
+        gap: 1rem;
     }
     .title-content h1{
         font-size: 2rem;
         margin-bottom: 0.5rem;
         width: 100%;
         display: block;
+        word-wrap: break-word;
     }
     .title-content h2{
         font-size: 1rem;
@@ -691,13 +785,15 @@
         pointer-events: none;
     }
     .hover-box{
-        width: 26rem;
-        height: 16rem;
+        width: 24rem;
+        height: 24rem;
         position: absolute;
-        left: calc(50% - 13rem);
-        top: calc(50% - 8rem);
-        border: 1px solid #ffffff;
-        opacity: 0;
+        left: calc(50% - 12rem);
+        top: calc(50% - 12rem);
+        border: 1px solid var(--foreground-light-1);
+        opacity: 0.4;
         pointer-events: none;
+        /* backdrop-filter: blur(16px); */
+        z-index: 1;
     }
 </style>
