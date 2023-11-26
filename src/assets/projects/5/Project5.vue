@@ -1,6 +1,6 @@
 <template>
     <PageContentContainer>
-        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <h2 v-if="language=='ZH'" class="fade-up-enter">Overview</h2>
             <h2 v-else-if="language=='EN'" class="fade-up-enter">Overview</h2>
@@ -53,7 +53,7 @@
             'period',
             'title',
             'skills',
-            'tools',
+            'teams',
             'language'
         ],
         mounted(){

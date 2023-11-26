@@ -1,181 +1,225 @@
 <template>
     <PageContentContainer>
-        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
-        <div style="background-color: #fefefe;border-radius: 1rem;padding:0 2rem;display: flex;width: calc(100% - 4rem)" class="fade-up-enter">
-            <img :src="require('@/assets/projects/7/reddot.svg')" alt="" id="reddot"  style="flex: 1;position: relative;min-width:0;margin: 2rem;padding-top: 0">
-            <img :src="require('@/assets/projects/7/web-summit.png')" alt="" id="web-summit"  style="flex: 1;position: relative;min-width:0;margin: 2rem;padding-top: 0">
-        </div>
-        <p v-if="language=='ZH'" class="fade-up-enter">RaceFit International, 是一家专注于动作捕捉技术的硬件公司，他们希望能够借助他们的产品RaceFit CORE，为用户提供一种全新的智能健身体验。为了将硬件佩戴在身体上，我们需要为已经生产的圆形动作传感器——CORE 设计配件，以应对各种场合的不同需求。</p>
-        <p v-else-if="language=='EN'" class="fade-up-enter">RaceFit International, a hardware company focused on smart technology, wants to use a brand new product, RaceFit CORE, that they can provide users with a physical fitness experience. Shape Motion Sensors - CORE designs accessories to meet the different needs of various occasions.</p>
-        <p v-if="language=='ZH'" class="fade-up-enter">通过分析和讨论，我们将硬件穿戴在身上的方式划分为三种</p>
-        <p v-else-if="language=='EN'" class="fade-up-enter">Through analysis and discussion, we divide the way the hardware is worn on the body into three</p>
-        <img :src="require('@/assets/projects/7/details1.svg')" alt="" id="details1" class="fade-up-enter" style="width: 100%;">
-        <p v-if="language=='ZH'" class="fade-up-enter">我们首先研发了嵌入式和绑带式的产品，并推出了市场。下面的视频可以帮助您更好地了解这两个配件结合手机应用如何帮助用户在体育运动中获得更好的体验</p>
-        <p v-else-if="language=='EN'" class="fade-up-enter">We first developed embedded and strap-on products and launched them to the market. The video below can help you better understand how these two accessories combined with the mobile app can help users have a better experience in sports</p>
-        <video controls width="100%" :poster="require('@/assets/projects/7/what-is-a-core.png')" class="fade-up-enter" style="margin-bottom: 2rem">
-            <source src="./What_is_a_CORE.mp4"
-                    type="video/mp4">
-        </video>
+        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">总览</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">Overview</h2>
+            <p v-if="language=='ZH'" class="fade-up-enter">在这个项目中，我担任产品设计师，我负责构建和维护产品组件库，确保设计一致性之余，还大大提高了用户测试的效率，以及开发的还原度。除此之外，我还参与了许多的产品功能设计工作，和团队一起推出了产品的第一次大改版</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">In this project, as a product designer, I was responsible for building and maintaining the product component library. This not only ensured design consistency but also significantly improved the efficiency of user testing and the fidelity of development. In addition to this, I actively participated in various product feature design tasks and collaborated with the team to launch the first major redesign of the product</p>
+        </PageSection>
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">背景</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">Context</h2>
 
-        <div style="font-size: 0">
-            <div id="suit" style="width: calc(100% + 4rem);position: relative;left: -2rem" class="fade-up-enter">
-                <img :src="require('@/assets/projects/7/details2.png')" alt="" id="details2"  style="width: calc(100%);padding-top: 0">
-                <div id="suit-content" style="background-color: #FF6666;padding: 0 2rem;height: 0;overflow: hidden;">
-                    <div style="border-radius: 1rem;width: 100%;height:calc(100vw - 4rem);background-color: var(--background-light);">
-                        <iframe src='https://my.spline.design/untitled-818928627c12c7c1e33b432013d7079f/' frameborder='0' width='100%' height='100%'></iframe>
-                    </div>
-                    <div style="display: grid;
-                                width: calc( 100% - 1rem);
-                                padding-top: 1rem;
-                                padding-bottom: calc(4rem + 7vw);
-                                grid-template-columns: repeat(2, 50%);
-                                grid-template-rows: repeat(2, auto);
-                                grid-row-gap: 1rem;
-                                grid-column-gap: 1rem;">
-                        <div id="suit01" class="fade-up-enter" style="grid-column-start: 1;grid-column-end: 3;grid-row-start: 1;grid-row-end: 2;var(--background-light);border-radius: 1rem">
-                            <img :src="require('@/assets/projects/7/suit01.svg')" alt="" style="width:100%;height: 100%;padding:2rem;box-sizing: border-box;object-fit:contain">
-                        </div>
-                        <div id="suit02" class="fade-up-enter" style="grid-column-start: 1;grid-column-end: 2;grid-row-start: 2;grid-row-end: 3;var(--background-light);border-radius: 1rem">
-                            <img :src="require('@/assets/projects/7/suit02.png')" alt="" style="width:100%;height: 100%;padding:2rem;box-sizing: border-box;object-fit:contain">
-                        </div>
-                        <div id="suit03" class="fade-up-enter" style="grid-column-start: 2;grid-column-end: 3;grid-row-start: 2;grid-row-end: 3;var(--background-light);border-radius: 1rem;position: relative;overflow: hidden">
-                            <img :src="require('@/assets/projects/7/suit03.png')" style="width: calc(90%);position: absolute;right: 0;top: 0;margin-top: 0;padding-top:0; object-fit:contain" >
-                        </div>
-                    </div>
+            <p v-if="language=='ZH'" class="fade-up-enter">Microsoft Teams是Microsoft旗下的协同工作办公软件，截至2023年4月，每月活跃用户数量超过3亿。汇报 App 是 Microsoft Teams 中的一个官方应用，旨在帮助用户邀请同事填写周报、日报等更新信息，以促进更高效的协同办公。在产品设计的早期，团队建立了三个用户画像：Assigner，Submitter 和 Reviewer，分别对应请求汇报，填写汇报和查看汇报这三个关键场景。整个产品围绕着这三个画像和场景展开</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Microsoft Teams is a collaborative office software under Microsoft's umbrella, with a monthly active user count exceeding 300 million as of April 2023. The Updates App is an official application within Microsoft Teams, designed to assist users in inviting colleagues to fill out updates such as weekly and daily reports, fostering more efficient collaborative work. In the early stages of product design, the team established three user personas: Assigner, Submitter, and Reviewer, corresponding to the key scenarios of reporting requests, submitting reports, and reviewing reports, respectively. The entire product is developed around these three personas and scenarios</p>
+            <img :src="require('@/assets/projects/7/Updates in Microsoft Teams blog - Teaser image.png')" alt="" class="fade-up-enter" style="">
+        </PageSection>
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">新鲜血液给团队注入了新的活力，新的组件库为产品带来多重裨益</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">Fresh blood injected new vitality into the team. New component library brought multiple benefits to the product.</h2>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">在我了解项目背景，熟悉工作流程的过程中，我发现产品和设计存在文案不一致和UI样式的不一致的问题。与此同时，设计token使用的混乱，引用的组件散落在各个功能设计也暴露了文件管理混乱的问题。因此我作为团队新成员的第一个事项，是着手构建和维护产品的组件库，以提高设计一致性和设计效率。通过和团队设计师的沟通，我定位了三个问题的根源：</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">While understanding the project and its workflow, I noticed inconsistencies in copy and UI styles between the product and design. Simultaneously, issues with design token usage and scattered component references across different feature designs exposed problems with file management. Therefore, I started the initiative to build and maintain a component library for the product, aiming to enhance design consistency and efficiency. Through communication with the team designers, I identified the root causes of three issues:</p>
+
+            <h3 v-if="language=='ZH'" class="fade-up-enter">1. 设计系统混用</h3>
+            <h3 v-else-if="language=='EN'" class="fade-up-enter">1. Mixed design system</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">设计文件混用 Fluent 的 Design token + 组件库与Teams产品线调整过后的Design token + 组件库，这是不一致发生的根源</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">The inconsistency arises from the mixed use of Fluent Design tokens and component libraries with the Design tokens and component libraries adjusted after the Teams product line overhaul in the design files.</p>
+            <img :src="require('@/assets/projects/7/mixed-design-system.svg')" alt="" class="fade-up-enter" style="">
+
+            <h3 v-if="language=='ZH'" class="fade-up-enter">2. 组件构建不合理导致解绑</h3>
+            <h3 v-else-if="language=='EN'" class="fade-up-enter">2. Bad-constructed component leading to detaching.</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">设计师进行设计时不得不解绑组件来满足设计要求，这使得局部设计更新后没有统一更新全局的设计，导致许多设计文件与产品的偏差越来越远</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">When designers create designs, they have to detach components to meet design requirements. This results in a lack of unified global updates after local design changes, leading to increasing discrepancies between many design files and the actual product.</p>
+            <img :src="require('@/assets/projects/7/component-update-not-sync.svg')" alt="" class="fade-up-enter" style="">
+
+            <h3 v-if="language=='ZH'" class="fade-up-enter">3. 旧设计文件散落各处</h3>
+            <h3 v-else-if="language=='EN'" class="fade-up-enter">3. Old design files scattered everywhere.</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">完成交付的设计文件没有及时归档，在进行新设计时没有统一的地方引用旧设计作为基础</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">The delivered design files were not promptly archived, and there was no unified referencing of old designs as a foundation when creating new designs.</p>
+            <img :src="require('@/assets/projects/7/file-management.svg')" alt="" class="fade-up-enter" style="">
+
+
+            <h3 v-if="language=='ZH'" class="fade-up-enter">4. 交互原型少，组件状态丢失</h3>
+            <h3 v-else-if="language=='EN'" class="fade-up-enter">4. Few interactive prototypes, component states are missing.</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">在进行设计中，针对组件的交互原型非常少，交互流程往往聚焦在用户流程上，组件的微交互细节缺失，导致开发不知道各个组件不同状态下的样式</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">In the design process, there are very few interactive prototypes for components. The interaction flow often focuses on user processes, neglecting the micro-interaction details of components. This leads to developers being unaware of the styles for different states of each component.</p>
+            <img :src="require('@/assets/projects/7/component-not-interactive.svg')" alt="" class="fade-up-enter" style="">
+
+            <p v-if="language=='ZH'" class="fade-up-enter">我希望通过一个<strong>统一的文件</strong>管理所有的<strong>可交互的组件，</strong><strong>对齐Fluent和Teams的设计语言</strong>，并且<strong>归档</strong>线上产品的设计稿</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">I hope to manage all <strong> interactive components </strong> through a <strong>unified file, </strong> <strong> aligning with the design language </strong> of Fluent and Teams, and <strong> archiving design </strong> for online products. </p>
+            <img :src="require('@/assets/projects/7/library-construction.svg')" alt="" class="fade-up-enter" style="">
+
+        </PageSection>
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">与传统组件库有所区别</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">Different from traditional component libraries.</h2>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">在搭建组件库的过程中我意识到，如果只按传统组件库的框架去搭建，由于一般组件只包括占位字符而不储存实际文案，对于内容的管理仍然缺失，因此我认为组件库的架构需要与传统组件库有所区别。我从原子设计理论中获得灵感，我同样按照五个层级对组件库进行划分，分别是Atom, Molecules, Organisms, Pages, Template</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">During the process of building the component library, I realized that if I follow the framework of a traditional component library, it may lack content management because general components only include placeholder text rather than storing actual copy. Therefore, I believe the architecture of the component library needs to differ from traditional ones. Drawing inspiration from atomic design theory, I also divide the component library into five levels: Atom, Molecules, Organisms, Pages, and Template.</p>
+
+            <h3 class="fade-up-enter">Atom</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">由于我们不需要自主定义 Design token，Atom 层不再是传统意义上的 design token，而是我们用到的所有基础组件，对其进行交互原型的制作</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">As we don't need to define design tokens independently, the Atom layer is no longer a design token in the traditional sense. Instead, it includes all the foundational components we use, and we create interactive prototypes for them</p>
+            <img :src="require('@/assets/projects/7/atom.png')" alt="" class="fade-up-enter" style="">
+
+            <h3 class="fade-up-enter">Molecule</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">Molecule 是组合组件，任何通过对组件的再组合都会被归类到 Molecules 里，此时组件的使用场景逐渐明确，部份组件已经可以明确文案</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Molecules are composite components, and any components created through the recombination of other components are classified under Molecules. At this point, the use cases for components become clearer, and some components can already have specific text</p>
+            <img :src="require('@/assets/projects/7/molecule.png')" alt="" class="fade-up-enter" style="">
+
+            <h3 class="fade-up-enter">Organism</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">Organism 是最终负责管理内容的组件层级，而并非Page。在Organism里设计师大量复用Molecule和Atom来搭建场景明确的设计。在此时，文案就已经得到了非常明确的设计，因此我选择在Organism里进行最终设计文件的归档</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Organism is the final component level responsible for content management, rather than Page. Designers extensively reuse Molecules and Atoms within Organism to build designs with clear scenarios. At this point, the copy has been precisely designed, so I choose to archive the final design files within Organism</p>
+            <img :src="require('@/assets/projects/7/organism.png')" alt="" class="fade-up-enter" style="">
+
+
+            <h3 class="fade-up-enter">Template</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">Template不再是原来5个层级的终点，而是来自Teams组件库中的shell组件，我通过可插入式组件的概念将其重新制作，在各个插槽中插入Organism即是最终Page设计</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Template is no longer the endpoint of the original five levels but originates from the shell components in the Teams component library. I have reworked it using the concept of pluggable components, where inserting Organisms into various slots constitutes the final Page design</p>
+            <img :src="require('@/assets/projects/7/template.png')" alt="" class="fade-up-enter" style="">
+
+            <h3 class="fade-up-enter">Page</h3>
+            <p v-if="language=='ZH'" class="fade-up-enter">Page 是所有页面的最终呈现，我没有为Page制作组件，原因是通过Organism，所有的内容和设计稿都已经得到归档，因此不需要再一次进行打包。另一方面，如果Page被打包成组件，那么每一次Organism更新时，都会使得Page需要重新发布，每次组件库更新的发布都会变得非常漫长和冗余。另一方面，当设计师在进行Exploration需要对部份组件进行解绑时，解绑的范围得到控制，没有解绑的Organism仍然具有被更新的能力</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Page is the ultimate presentation of all pages. I haven't created components for Page because, through Organism, all content and design drafts have already been archived, eliminating the need for repackaging. On the other hand, if Page were packaged as a component, every time Organism is updated, it would require a re-release of Page, making the release process for each component library update lengthy and redundant. On another note, when designers are exploring and need to detach certain components, the scope of detachment is controlled. Organisms that haven't been detached still retain the ability to be updated</p>
+            <img :src="require('@/assets/projects/7/page.png')" alt="" class="fade-up-enter" style="">
+
+            <p v-if="language=='ZH'" class="fade-up-enter">总的来说，设计师除了直接拷贝Page中的页面，还可以从场景出发，选择合适的Template,然后根据不同的插槽找到对应的Organism，并调整Organism中的引用的Molecule和Atom，从而达到引用此前设计页面的目的。而当组件更新时，这些更新会逐级传递到Organism，因此所有引用了这些Organism的地方都会得到更新</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">In summary, besides directly copying pages from Page, designers can start from specific scenarios, choose the appropriate Template, and then, based on different slots, find the corresponding Organism. They can adjust the references to Molecules and Atoms within the Organism to achieve the goal of referencing previously designed pages. When components are updated, these updates will cascade down to Organism, ensuring that all instances referencing these Organisms receive the updates.</p>
+            <img :src="require('@/assets/projects/7/structure.png')" alt="" class="fade-up-enter" style="">
+
+
+        </PageSection>
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">除了提高了一致性，设计效率也得到有效提高</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">In addition to improving consistency, design efficiency has also been effectively increased</h2>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">组件库上线后，获得了团队设计师的一致认同，在此后的项目设计中得到了广泛的应用</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">After the component library was launched, it gained unanimous approval from the team designers and was widely used in subsequent project designs.</p>
+            <div class="h-stack" style="flex-wrap: wrap;gap:2rem">
+
+                <Quote :avatar="require('@/assets/projects/7/sikang.png')" :name="'Sikang Li'" style="flex: 1 1 0;" v-if="language=='ZH'" class="fade-up-enter">
+                    你的那个组件库真的<strong>太好用了！</strong>
+                </Quote>
+                <Quote :avatar="require('@/assets/projects/7/sikang.png')" :name="'Sikang Li'" style="flex: 1 1 0;" v-else-if="language=='EN'" class="fade-up-enter">
+                    The Component library you built is <strong>awesome!</strong>
+                </Quote>
+                
+                <Quote :avatar="require('@/assets/projects/7/sandra.png')" :name="'Sandra Yu'" style="flex: 1 1 0;" v-if="language=='ZH'" class="fade-up-enter">
+                    哎子东，你有空给我介绍一下你的组件库呗，回头我给 Approve（Teams里的另一个官方应用） 也<strong>按照你的结构整一个</strong>
+                </Quote>
+                <Quote :avatar="require('@/assets/projects/7/sandra.png')" :name="'Sandra Yu'" style="flex: 1 1 0;" v-else-if="language=='EN'" class="fade-up-enter">
+                    Hey, could you introduce me to your component library? I want to <strong>follow your structure and create one</strong> for Approval (another official app in Teams) afterward.
+                </Quote>
+            </div>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">通过简单配置，即插即用的组件就能达到非常高质量的还原度，无论是在交互设计演示还是用户测试中都发挥了不错的效果</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Through simple configuration, the plug-and-play components can achieve a very high level of fidelity, proving effective in both interactive design demos and user testing.</p>
+            <video src="./interaction-demo.mp4" autoplay webkit-playsinline="true" playsinline="true" x5-video-player-type='h5-page' loop muted class="v-stack fade-up-enter"></video>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">设计效率也得到了大大的提高，以往我们要完成拥有程度细节的原型，需要将组件的状态拆解到不同的页面并连接原型，这不仅非常浪费设计师的精力在这些重复的操作上，而且会导致大量重复页面的出现</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">Design efficiency has been significantly enhanced as well. Previously, when creating detailed prototypes, we had to break down component states into different pages and link them in the prototype. This not only wasted designers' efforts on repetitive tasks but also resulted in a proliferation of duplicate pages</p>
+            <div class="v-stack fade-up-enter" >
+                <video src="./Teams_flow.mp4" autoplay webkit-playsinline="true" playsinline="true" x5-video-player-type='h5-page' loop muted></video>
+                <p v-if="language=='ZH'" style="font-size: 0.5rem; color: var(--foreground-light-1);">播放速度 x2</p>
+                <p v-else-if="language=='EN'"  style="font-size: 0.5rem; color: var(--foreground-light-1);">Play speed x2</p>
+            </div>
+            
+            <p v-if="language=='ZH'" class="fade-up-enter">通过在组件集内部连接交互逻辑，组件达到即插即用的状态，经过两三个步骤即可实现完全仿真的原型，设计师的精力被解放到思考其他设计问题上。不仅如此，设计师还可以根据实际需求，选择将组件的不同状态展示与否，来提供更详细的设计还是减少细节使流程的展示更清晰</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">By internally connecting the interaction logic within the component set, the components have reached a plug-and-play state. With just two or three steps, a fully simulated prototype can be achieved. This has liberated designers' energy to focus on contemplating other design challenges. Moreover, designers can choose to display or hide different states of components based on actual needs, providing more detailed designs or reducing details for a clearer display for user flow.</p>
+            <div class="v-stack fade-up-enter" >
+                <video src="./UCL_flow.mp4" autoplay webkit-playsinline="true" playsinline="true" x5-video-player-type='h5-page' loop muted></video>
+                <p v-if="language=='ZH'" style="font-size: 0.5rem; color: var(--foreground-light-1);">播放速度 x2</p>
+                <p v-else-if="language=='EN'"  style="font-size: 0.5rem; color: var(--foreground-light-1);">Play speed x2</p>
+            </div>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">在组件库的帮助下，制作原型进行测试的效率和质量有显著的提升，我在项目组的9个月时间里开展了3次用户可用性测试，而这个数字在过去的一年里是1</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">With the assistance of the component library, the efficiency and quality of prototyping for testing have significantly improved. In the nine months within my project team, I conducted three usability tests, whereas this number was only one in the past year.</p>
+        </PageSection>
+
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">除了优化设计工作流，我还从用户的声音中寻找产品的改进机会</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">In addition to optimizing the design workflow, I also seek opportunities for product improvement from the voices of users.</h2>
+            
+            <p v-if="language=='ZH'" class="fade-up-enter">我们通过不同的渠道收集了用户的反馈，其中一个集中的问题是用户<strong>无法找到发布了的汇报请求和管理这些请求</strong></p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">We collected user feedback through various channels, and one common issue is that users are <strong>unable to find the published request and manage them</strong></p>
+
+            <div class="v-stack" style="flex-wrap: wrap;gap: 2rem;">
+                <Quote :name="'mlmiles1'" style="flex: 1 1 0;" class="fade-up-enter">
+                    After creating my first one, <strong> the option to manage/add templates was replaced by Request an Update </strong> option in the upper left-hand corner. Confusing
+                </Quote>
+
+                <Quote :name="'Jad Pro'" style="flex: 1 1 0;" class="fade-up-enter">
+                    If you want to disable a weekly update (or any update for that matter), you have to <strong>click 'request an update' button to even see the disable feature.</strong> Even after doing this, I was still being bombarded with notifications.
+                </Quote>
+
+                <Quote :name="'Gene Dixon'" style="flex: 1 1 0;" class="fade-up-enter">
+                    I agree, I <strong>spent hours trying to figure out how to stop</strong> a weekly update request.
+                </Quote>
+            </div>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">我尝试在现有产品中定位问题的本质，找到了下列两个根源</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">I attempted to pinpoint the essence of the issues within the existing product and identified the following two root causes.</p>
+
+            <h3 v-if="language=='ZH'" class="fade-up-enter">1. Assinger是一个汇报的起点之一，如此重要的角色，他们甚至没有一个专门的页面可以进行工作</h3>
+            <h3 v-else-if="language=='EN'" class="fade-up-enter">1. Assigner, one of the starting point of a report, as a such important role, they don’t even have a dedicated page to work on</h3>
+            <img :src="require('@/assets/projects/7/no-entry.png')" alt="" class="fade-up-enter" style="">
+
+            <h3 v-if="language=='ZH'" class="fade-up-enter">2. 管理请求的入口和创建请求的按钮混合在一起，用户很难发现原来他点击创建请求后可以看到他此前创建过的请求并管理他们 </h3>
+            <h3 v-else-if="language=='EN'" class="fade-up-enter">2. Create request and manage request are mixed up into one button. It‘s difficult for users to discover that after clicking "Create Request," they can view and manage the requests they previously created.</h3>
+            <img :src="require('@/assets/projects/7/mixed-entry.png')" alt="" class="fade-up-enter" style="">
+
+            <p v-if="language=='ZH'" class="fade-up-enter">这两个问题需要逐个击破：首先我们需要为Assigner设计一个专门的页面，来创建和管理他的请求；并且我们需要根据用户的使用习惯，找到用户需要进行修改操作的接触点，并提供对应的入口</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">These two issues need to be tackled separately: Firstly, we need to design a dedicated page for Assigners to create and manage their requests. Secondly, based on user habits, we should identify the touchpoints where users need to make modifications and provide corresponding entry points.</p>
+        </PageSection>
+
+        <PageSection>
+            <h2 v-if="language=='ZH'" class="fade-up-enter">专属于Assigner的主页，更好地管理请求</h2>
+            <h2 v-else-if="language=='EN'" class="fade-up-enter">A dedicated home for assigners to better manage request</h2>
+
+            <p v-if="language=='ZH'" class="fade-up-enter">似乎这个设计是显而易见的，因为我们的竞品都是这样处理，但我还是重新梳理了一遍信息架构，确保如此兴师动众的改动是合理的</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">It seems that this design is obvious, as our competitors handle it this way. However, I have reexamined the information architecture to ensure that such a significant change is justified.</p>
+            <img :src="require('@/assets/projects/7/ia-restructure.svg')" alt="" class="fade-up-enter" style="">
+
+            <p v-if="language=='ZH'" class="fade-up-enter">我们在左侧添加tab和右侧添加按钮中做了 A/B 测试[1]，用户的声音是一边倒地选择了添加tab，这大大地支持了这个设计，也增强了我的信心</p>
+            <p v-else-if="language=='EN'" class="fade-up-enter">We conducted A/B tests [1] with two options: adding tabs on the left or buttons on the right. The user feedback overwhelmingly favored adding tabs, providing strong support for this design, also building my confidence</p>
+            <div class="h-stack" >
+                <div class="v-stack" style="gap: 0.25rem;">
+                    <img :src="require('@/assets/projects/7/optiona.png')" alt="" class="fade-up-enter" style="width: 100%;">
+                    <p style="font-size: 0.5rem;line-height: 0.5rem;">Option A</p>
+                </div>
+                <div class="v-stack" style="gap: 0.25rem;">
+                    <img :src="require('@/assets/projects/7/optionb.png')" alt="" class="fade-up-enter" style="width: 100%;">
+                    <p style="font-size: 0.5rem;line-height: 0.5rem;">Option B</p>
                 </div>
             </div>
-            <div id="band" style="width: calc(100% + 4rem);position: relative;left: -2rem;top:-7vw" class="fade-up-enter">
-                <img :src="require('@/assets/projects/7/details3.png')" alt="" id="details3"  style="width: calc(100%);padding-top: 0">
-                <div id="band-content" style="background-color: #66B2FF;padding: 0 2rem;height: 0;overflow: hidden">
-                    <div style="border-radius: 1rem;width: 100%;height:calc(100vw - 4rem);var(--background-light);">
-                        <iframe src='https://my.spline.design/suitholder-8bc579e20bede6b7126564da1ec0a83b/' frameborder='0' width='100%' height='100%'></iframe>
-                    </div>
-                    <div style="display: grid;
-                                width: calc( 100% - 1rem);
-                                padding-top: 1rem;
-                                padding-bottom: calc(4rem + 7vw);
-                                grid-template-columns: repeat(2, 50%);
-                                grid-template-rows: repeat(5, auto);
-                                grid-row-gap: 1rem;
-                                grid-column-gap: 1rem;">
-                        <div id="band01" class="fade-up-enter" style="grid-column-start: 1;grid-column-end: 2;grid-row-start: 1;grid-row-end: 4;var(--background-light);border-radius: 1rem">
-                            <img :src="require('@/assets/projects/7/band01.png')" alt="" style="width:100%;height: 100%;box-sizing: border-box;object-fit:contain;padding-top: 0">
-                        </div>
-                        <div id="band02" class="fade-up-enter" style="grid-column-start: 2;grid-column-end: 3;grid-row-start: 1;grid-row-end: 3;var(--background-light);border-radius: 1rem">
-<!--                            <img :src="require('@/assets/projects/7/band03.png')" alt="" style="width:100%;height: 100%;padding:2rem;box-sizing: border-box;object-fit:contain;">-->
-                        </div>
-                        <div id="band03" class="fade-up-enter" style="grid-column-start:1;grid-column-end: 2;grid-row-start: 4;grid-row-end: 5;var(--background-light);border-radius: 1rem;position: relative;overflow: hidden">
-                            <img :src="require('@/assets/projects/7/band03.png')" alt="" style="width:100%;height: 100%;box-sizing: border-box;object-fit:cover;padding-top: 0">
-                        </div>
-                        <div id="band04" class="fade-up-enter" style="grid-column-start: 2;grid-column-end: 3;grid-row-start: 3;grid-row-end: 5;var(--background-light);border-radius: 1rem;position: relative;overflow: hidden">
-                            <img :src="require('@/assets/projects/7/band04.png')" alt="" style="width:100%;height:100%;box-sizing: border-box;object-fit:contain;padding-top: 0" >
-                        </div>
-                        <div id="band05" class="fade-up-enter" style="grid-column-start: 1;grid-column-end: 3;grid-row-start: 5;grid-row-end: 6;var(--background-light);border-radius: 1rem;position: relative;overflow: hidden;display: flex">
-                            <img :src="require('@/assets/projects/7/strap1.png')" alt="" style="flex:1;box-sizing: border-box;object-fit:contain;padding-top: 0;min-width: 0" >
-                            <img :src="require('@/assets/projects/7/strap2.png')" alt="" style="flex:1;box-sizing: border-box;object-fit:contain;padding-top: 0;min-width: 0" >
-                            <img :src="require('@/assets/projects/7/strap3.png')" alt="" style="flex:1;box-sizing: border-box;object-fit:contain;padding-top: 0;min-width: 0" >
-                            <img :src="require('@/assets/projects/7/strap4.png')" alt="" style="flex:1;box-sizing: border-box;object-fit:contain;padding-top: 0;min-width: 0" >
-                            <img :src="require('@/assets/projects/7/strap5.png')" alt="" style="flex:1;box-sizing: border-box;object-fit:contain;padding-top: 0;min-width: 0" >
-                            <img :src="require('@/assets/projects/7/strap6.png')" alt="" style="flex:1;box-sizing: border-box;object-fit:contain;padding-top: 0;min-width: 0" >
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="clip" style="width: calc(100% + 4rem);position: relative;left: -2rem;top:-14vw" class="fade-up-enter">
-                <img :src="require('@/assets/projects/7/details4.png')" alt="" id="details4"  style="width: calc(100%);padding-top: 0">
-                <div id="clip-content" style="background-color: #DF80FF;padding: 0 2rem;height: 0;overflow: hidden">
-                    <div style="border-radius: 1rem;width: 100%;height:calc(100vw - 4rem);var(--background-light);margin-bottom: 4rem">
-                        <iframe src='https://my.spline.design/clipholder-e09de686ddc984ef7145ae62213dec80/' frameborder='0' width='100%' height='100%'></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+        </PageSection>
     </PageContentContainer>
 </template>
 
 <script>
-    import {gsap,Power2} from "gsap";
-    import {ScrollTrigger} from "gsap/ScrollTrigger";
+    import Quote from "@/components/Quote.vue";
 
-    gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.defaults({duration:0.8, ease:Power2.easeInOut,scroller:'.detail-wrapper'});
     export default {
-        name: "Project7",
-        data(){
-            return{
-                isSuitFolded:true,
-                isBandFolded:true,
-                isClipFolded:true,
-            }
-        },
-        props:[
-            'category',
-            'period',
-            'skills',
-            'tools',
-            'title',
-            'language'
-        ],
-        mounted(){
-            document.querySelector('#suit').addEventListener('click',()=>{
-                if(this.isSuitFolded){
-                    gsap.to('#suit-content',{
-                        height:'auto',
-                        duration:0.8,
-                        onComplete:()=>{
-                            this.isSuitFolded = false;
-                        }
-                    })
-                }else {
-                    gsap.to('#suit-content',{
-                        height:0,
-                        duration:0.8,
-                        onComplete:()=>{
-                            this.isSuitFolded = true;
-                        }
-                    })
-                }
-            });
-            document.querySelector('#band').addEventListener('click',()=>{
-                if(this.isBandFolded){
-                    gsap.to('#band-content',{
-                        height:'auto',
-                        duration:0.8,
-                        onComplete:()=>{
-                            this.isBandFolded = false;
-                        }
-                    })
-                }else {
-                    gsap.to('#band-content',{
-                        height:0,
-                        duration:0.8,
-                        onComplete:()=>{
-                            this.isBandFolded = true;
-                        }
-                    })
-                }
-            });
-            document.querySelector('#clip').addEventListener('click',()=>{
-                if(this.isClipFolded){
-                    gsap.to('#clip-content',{
-                        height:'auto',
-                        duration:0.8,
-                        onComplete:()=>{
-                            this.isClipFolded = false;
-                        }
-                    })
-                }else {
-                    gsap.to('#clip-content',{
-                        height:0,
-                        duration:0.8,
-                        onComplete:()=>{
-                            this.isClipFolded = true;
-                        }
-                    })
-                }
-            })
-        }
-    }
+    name: "Project7",
+    data() {
+        return {};
+    },
+    props: [
+        'category',
+        'period',
+        'skills',
+        'teams',
+        'title',
+        'language'
+    ],
+    mounted() {
+    },
+    components: { Quote }
+}
 </script>
 
 <style scoped>

@@ -51,7 +51,7 @@
       return{
         showcaseLoadingPercent:0,
         logoLoadingPercent:0,
-        filterIndex:0,
+        filterIndex:1,
         isTitleHide: true,
         language:'EN',
       }
@@ -156,19 +156,6 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: auto; /* 用来控制元素在移动设备上是否使用滚动回弹效果 */
     z-index: 1;
-  }
-  #app::after{
-    content:"";
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url(./assets/brand/noise.png);
-    z-index: 1000;
-    opacity: 0.5;
-    mix-blend-mode: overlay;
-    pointer-events: none;
   }
   #app::-webkit-scrollbar{
     display: none; /* Chrome Safari */

@@ -1,6 +1,7 @@
 <template>
     <div class="details-page">
         <div class="changing-project-cover"></div>
+        <div class="sticky-top-bg" style="width: 100%;position: fixed;height: 5rem;background: var(--background-dark);z-index: 96;left: 0;top: 0;opacity: 0;"></div>
         <div class="back-button interactive-l h-stack" @click="closeDetailPage">
             <img :src="require('@/assets/brand/back.svg')" alt="" style="width: 1rem; height: 1rem;">
             <p v-if="language=='ZH'" class="back-words">返回</p>
@@ -9,18 +10,11 @@
         <div class="detail-wrapper">
             <div class="detail-container" id="detail-container">
                 <div class="intro-wrapper">
-                    <div class="loading-bar">
-                        <div class="loaded-bar"></div>
-                    </div>
-                    <div class="percent-scroll">
-                        <h2 class="percent">{{fixedPercent}}</h2>
-                        <p v-if="language=='ZH'" class="scroll">滚动浏览</p>
-                        <p v-else-if="language=='EN'" class="scroll">Scroll to view</p>
-                    </div>
+                    <h2 class="percent">{{fixedPercent}}</h2>
                 </div>
                 <div class="content">
-                    <div v-if="language=='ZH'" :is="projectContent" :period = 'this.period' :category = 'this.category.ZH' :title='this.title.ZH' :skills="this.skills.ZH" :tools="this.tools.EN" :language='this.languageDetailsPage' ></div>
-                    <div v-else-if="language=='EN'" :is="projectContent" :period = 'this.period' :category = 'this.category.EN' :title='this.title.EN' :skills="this.skills.EN" :tools="this.tools.EN" :language='this.languageDetailsPage'></div>
+                    <div v-if="language=='ZH'" :is="projectContent" :period = 'this.period' :category = 'this.category.ZH' :title='this.title.ZH' :skills="this.skills.ZH" :teams="this.teams.EN" :language='this.languageDetailsPage' ></div>
+                    <div v-else-if="language=='EN'" :is="projectContent" :period = 'this.period' :category = 'this.category.EN' :title='this.title.EN' :skills="this.skills.EN" :teams="this.teams.EN" :language='this.languageDetailsPage'></div>
                     <RelatedProject :relatedProjectsID="this.relatedID" :language="this.language" @changeProject="changeProject" class="related-project"></RelatedProject>
                 </div>
 
@@ -35,8 +29,9 @@
 <script>
     import {gsap,Power2} from 'gsap'
     import {ScrollTrigger} from "gsap/ScrollTrigger";
+    import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger,ScrollToPlugin);
 
     export default {
         name: "DetailPage",
@@ -82,8 +77,8 @@
             skills:function(){
                 return this.projects[this.preloadIndex].skills;
             },            
-            tools:function(){
-                return this.projects[this.preloadIndex].tools;
+            teams:function(){
+                return this.projects[this.preloadIndex].teams;
             },
             isMobile : function () {
                 return window.matchMedia('(max-width: 767px)').matches
@@ -104,11 +99,6 @@
                 gsap.to(this.$data, {
                     duration: 0.8,
                     tweenPercent: newValue,
-                    onUpdate:()=>{
-                        gsap.set('.loaded-bar',{
-                            width: this.tweenPercent + '%',
-                        });
-                    },
                     onComplete:()=>{
                         if( this.fixedPercent == 100){
                             if(!this.isOpenDetailPage){
@@ -124,16 +114,6 @@
         methods:{
             open(i){
                 this.isOpenDetailPage = true;
-                gsap.to(('.scroll'),{
-                    duration:0,
-                    opacity:0,
-                    ease:Power2.easeInOut
-                });
-                gsap.to(('.percent'),{
-                    duration:0,
-                    opacity:1,
-                    ease:Power2.easeInOut
-                });
                 let index = this.projects.findIndex(function (item) {
                     return item.id == i;
                 });
@@ -141,6 +121,10 @@
             },
             AllImagesLoaded(){
                 this.$emit('allImagesLoaded');
+                gsap.to('.percent',{
+                    duration: 0.4,
+                    opacity: 0
+                });
                 gsap.fromTo('.details-background',{
                     opacity:0,
                 },{
@@ -152,43 +136,27 @@
                         toggleActions:'none none none none'
                     }
                 });
-                gsap.to('.percent',{
-                    duration: 0.4,
-                    opacity: 0,
-                    onComplete:()=>{
-                        gsap.to('.scroll', {
-                            duration: 0.4,
-                            opacity: 1,
-                            onComplete:()=>{
-                                document.querySelector('.detail-wrapper').style.overflowY = 'scroll';
-                                gsap.fromTo('.scroll',{
-                                    opacity:1,
-                                },{
-                                    opacity:0,
-                                    scrollTrigger:{
-                                        trigger:'.intro-wrapper',
-                                        start:'top top',
-                                        scrub:true,
-                                        toggleActions:'none none none none'
-                                    }
-                                });
-                                gsap.fromTo('.loading-bar',{
-                                    opacity:1,
-                                },{
-                                    opacity:0,
-                                    scrollTrigger:{
-                                        trigger:'.intro-wrapper',
-                                        start:'top top',
-                                        scrub:true,
-                                        toggleActions:'none none none none'
-                                    }
-                                });
-                            }
-                        });
+                gsap.fromTo('.sticky-top-bg',{
+                    opacity:0,
+                },{
+                    opacity:1,
+                    scrollTrigger:{
+                        trigger:'.intro-wrapper',
+                        start:'top top-=400',
+                        scrub:true,
+                        toggleActions:'none none none none'
                     }
                 });
+                document.querySelector('.detail-wrapper').style.overflowY = 'scroll';
                 this.projectContent = this.projects[this.preloadIndex].details;
                 document.querySelector('.related-project').style.display = 'block';
+                gsap.to('.detail-wrapper',
+                {
+                    scrollTo:document.querySelector('.content').getBoundingClientRect().top - 80,
+                    duration:1.6,
+                    ease:Power2.easeInOut
+                })
+
             },
             changeProject(e){
                 gsap.to('.changing-project-cover',{
@@ -229,7 +197,6 @@
                         this.loadingPercent = 0;
                         document.querySelector('.detail-wrapper').style.scrollTop = 0;
                         document.querySelector('.detail-wrapper').style.display = 'none';
-                        document.querySelector('.scroll').style.opacity = 0;
                         document.querySelector('.related-project').style.display = 'none';
                     }
                 });
@@ -303,44 +270,23 @@
     }
     .intro-wrapper{
         width: 100%;
+        max-width: 768px;
+        margin: 0 auto;
         height: 100vh;
         position: relative;
-        /*mix-blend-mode:difference;*/
-    }
-    .percent-scroll{
-        /*filter: url('#goo-3');*/
-        position: fixed;
-        bottom: 2rem;
-        font-size: 2rem;
-        text-align: center;
-        width: 100vw;
-        height: 4rem;
     }
     .percent{
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%,0);
-        bottom: 1rem;
+        position: fixed;
+        left: 2rem;
+        bottom:2rem;
         font-size: 2rem;
         color: var(--foreground-light-1);
         opacity: 0;
         z-index: 2;
-        /*mix-blend-mode:difference;*/
+        mix-blend-mode:difference;
         font-weight: 400;
     }
-    .scroll{
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%,0);
-        bottom: 1rem;
-        font-size: 1rem;
-        color: var(--foreground-light-1);
-        opacity: 0;
-        z-index: 2;
-        /*mix-blend-mode:difference;*/
-    }
     .content{
-        /*background: var(--background-dark);*/
         width: 100%;
         font-size: 0;
         box-sizing: border-box;
@@ -381,21 +327,6 @@
         top: 0;
         pointer-events: none;
         z-index: 94;
-    }
-    .loading-bar{
-        display: block;
-        width: 80%;
-        height: 1px;
-        position: fixed;
-        bottom: 6rem;
-        left: 10%;
-        background: var(--foreground-dark-2);
-        /*mix-blend-mode:difference;*/
-    }
-    .loaded-bar{
-        width: 0;
-        height: 1px;
-        background: var(--background-light);
     }
 
     .changing-project-cover{

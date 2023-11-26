@@ -7,16 +7,16 @@
 }
 
 :root {
-  --background-dark: rgba(16,16,16,1);
-  --background-light: rgba(250,250,250,1);
-  --foreground-dark-1: rgba(16,16,16,1);
-  --foreground-dark-2: rgba(16,16,16,0.75);
-  --foreground-dark-3: rgba(16,16,16,0.5);
-  --foreground-dark-4: rgba(16,16,16,0.25);
-  --foreground-light-1: rgba(239,239,239,1);
-  --foreground-light-2: rgba(239,239,239,0.75);
-  --foreground-light-3: rgba(239,239,239,0.5);
-  --foreground-light-4: rgba(239,239,239,0.25);
+  --background-dark: rgba(8,8,8,1);
+  --background-light: rgba(248,248,248,1);
+  --foreground-dark-1: rgba(8,8,8,1);
+  --foreground-dark-2: rgba(8,8,8,0.75);
+  --foreground-dark-3: rgba(8,8,8,0.5);
+  --foreground-dark-4: rgba(8,8,8,0.25);
+  --foreground-light-1: rgba(248,248,248,1);
+  --foreground-light-2: rgba(248,248,248,0.75);
+  --foreground-light-3: rgba(248,248,248,0.5);
+  --foreground-light-4: rgba(248,248,248,0.25);
 
   --gray1:#202022;
   --gray2:#404042;
@@ -51,30 +51,30 @@
   --vh:0;
 }
 
-@font-face {
-  font-family: NotoSansSC-Variable;
-  src: url('../font/NotoSansSC-VariableFont_wght.ttf');
-}
+// @font-face {
+//   font-family: 'Noto Sans SC';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-display: swap;
+//   src: url('../fonts/NotoSansSC.woff');
+// }
 
-@font-face {
-  font-family: NotoSerifSC-Bold;
-  src: url('../font/NotoSerifSC-Bold.otf');
-}
+// @font-face {
+//   font-family: 'Noto Serif SC Black';
+//   font-style: normal;
+//   font-weight: 400;
+//   font-display: swap;
+//   src: url('../fonts/NotoSerifSC-Black.otf');
+// }
 
-@font-face {
-  font-family: NotoSerifSC-Black;
-  src: url('../font/NotoSerifSC-Black.otf');
-}
-
+// @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC&family=Noto+Serif+SC:wght@900&display=swap');
 
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   margin-block-start: 0;
   margin-block-end: 0;
-  letter-spacing: 0.05rem;
-  font-family: 'NotoSansSC-Variable';
+  font-family: 'Noto Sans SC', sans-serif;
 }
 
 html, body {
@@ -88,7 +88,7 @@ html, body {
 }
 
 h1 {
-  font-family: 'NotoSerifSC-Bold';
+  font-family: 'Noto Serif SC', serif;
   font-size: 4rem;
   line-height: 1.2;
   font-weight: 700;
@@ -96,7 +96,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'NotoSerifSC-Bold';
+  font-family: 'Noto Serif SC', serif;
   font-size: 2rem;
   line-height: 1.2;
   color: var(--foreground-light-1);
@@ -126,9 +126,19 @@ p {
   color: var(--foreground-light-2);
 }
 
+strong{
+  font-family: 'Noto Serif SC', serif;
+  color: var(--foreground-light-1);
+  font-style: italic;
+  padding-right: 2px;
+}
 caption{
   font-size: 0.5rem;
   line-height: 0.5rem;
+}
+
+video{
+  pointer-events: none;
 }
 
 .images img{

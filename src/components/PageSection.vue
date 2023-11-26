@@ -1,12 +1,17 @@
 <template>
     <div class="section">
+        <div class="border-top"></div>
         <slot></slot>
     </div>
 </template>
 
 <script>
+
     export default {
-        name: "PageSection"
+        name: "PageSection",
+        mounted(){
+
+        },
     }
 </script>
 
@@ -15,9 +20,16 @@
         display: flex;
         flex-direction: column;
         gap: 4rem;
-        border-top: 1px var(--foreground-light-3) solid;
         padding-top: 2rem;
         position: relative;
     }
-
+    .border-top{
+        width: 100%;
+        height: 1px;
+        background: var(--foreground-light-4);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
 </style>

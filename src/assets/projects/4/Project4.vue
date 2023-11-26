@@ -1,6 +1,6 @@
 <template>
     <PageContentContainer>
-        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <p v-if="language=='ZH'" class="fade-up-enter">致新医药位于浙江杭州。是一家专注于药物研发和技术服务的高新医药企业。</p>
             <p v-else-if="language=='EN'" class="fade-up-enter">Zhejiang Zhixin Pharma is located in Yuhang District, Hangzhou. It is a high-tech enterprise specializing in drug research and development and technical services.</p>
@@ -54,7 +54,7 @@
             'category',
             'period',
             'skills',
-            'tools',
+            'teams',
             'title',
             'language'
         ],

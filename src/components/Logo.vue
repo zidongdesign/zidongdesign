@@ -1,7 +1,7 @@
 <template>
     <div class="logo-container">
         <img class="logo" src="@/assets/brand/logo.svg" alt="">
-        <p style="font-size: 12px; width: 96px;">陈子东</p>
+        <p style="font-size: 12px; width: fit-content;">陈子东</p>
     </div>
 </template>
 

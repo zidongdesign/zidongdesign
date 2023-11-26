@@ -4,22 +4,25 @@
             <div class="showcase-container" id="showcase-container" @touchmove="onShowcaseContainerTouchMove">
                 <div class="showcase-figure" v-for="item in projects" :key = "item.id">
                     <div
-                            :data-src="item.dataSrc"
-                            :data-hover="item.dataHover"
                             class="showcase-image interactive-l"
                             alt="My image"
+                    >
+                    </div>
+                    <div class="title-content interactive-l"  
+                            :data-src="item.dataSrc"
+                            :data-hover="item.dataHover"
                             @mouseover="onShowcaseImageMouseOver"
                             @mouseout="onShowcaseImageMouseOut"
                             @click="openDetailPage"
                     >
-                    </div>
-                    <div class="title-content">
+                        
                         <h1 v-if="language == 'ZH'">{{item.title.ZH}}</h1>
                         <h1 v-else-if="language == 'EN'">{{item.title.EN}}</h1>
                         <p v-if="language == 'ZH'">{{item.category.ZH}}</p>
                         <p v-if="language == 'EN'">{{item.category.EN}}</p>
+                        <div class="hover-box"></div>
                     </div>
-                    <div class="hover-box"></div>
+
                 </div>
             </div>
         </div>
@@ -76,7 +79,6 @@
                 loadingPercent:0,
 
                 scrollbar: null,
-                scrollY :0,
 
                 projectCount:this.ProjectData.data().projectData.length,
 
@@ -374,7 +376,7 @@
                 this.showTitle();
                 const newBound = {
                     x: parseFloat(window.getComputedStyle(document. documentElement)["fontSize"])*24,
-                    y:parseFloat(window.getComputedStyle(document. documentElement)["fontSize"])*24,
+                    y: parseFloat(window.getComputedStyle(document. documentElement)["fontSize"])*24,
                 };
                 const newRatio = getRatio(newBound,this.images[this.clickTargetIndex].image);
                 gsap.to(this.meshes[this.clickTargetIndex].material.uniforms.u_hoverratio.value,{
@@ -389,13 +391,15 @@
                     ease:Power2.easeInOut,
                     duration:0.8,
                 });
+                this.isHovering = false;
+                this.isOpenDetailPage = false;
                 gsap.to(document.querySelectorAll('.showcase-image')[this.clickTargetIndex],{
                     duration:0.8,
                     width:'24rem',
                     height:'24rem',
                     left:'calc(50% - 12rem)',
-                    top:'calc(50% - 12rem)',
-                    ease:Power2.easeInOut,
+                    top:'calc(50% - 18rem)',
+                    ease:Power2.easeOut,
                     onUpdate:()=>{
                         this.getBounds(document.querySelectorAll('.showcase-image')[this.clickTargetIndex]);
                         this.meshes[this.clickTargetIndex].scale.set(this.sizes.x, this.sizes.y, 1);
@@ -480,7 +484,6 @@
                         duration:0.4,
                         delay:0.1,
                         onComplete:()=>{
-
                         }
                     });
                 },100);
@@ -588,72 +591,62 @@
                 });
             },
             onScroll(){
-                if(!this.isOpenDetailPage){
-                    const scrollValue = -document.querySelector('.showcase').getBoundingClientRect().top / document.querySelector('.showcase-figure').getBoundingClientRect().height;
-                    this.inViewportTargetIndex = parseInt(scrollValue + 0.5);
-
-                    if(this.inViewportTargetIndex > this.projects.length - 0.5){
-                        return
-                    }
-                    if(scrollValue % 1 > 0.75 || (scrollValue % 1 < 0.25 && scrollValue % 1 > -0.25)){
-                        gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
-                            opacity:1,
-                            duration:0.4,
-                        })
-                    }else{
-                        gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
-                            opacity:0.4,
-                            duration:0.4,
-                        })
-                    }
-
-                    if(document.querySelector('.showcase').getBoundingClientRect().top < window.innerHeight - 100 &&
-                    document.querySelector('.showcase').getBoundingClientRect().height + document.querySelector('.showcase').getBoundingClientRect().top > window.innerHeight - 100){
-                        if(!document.querySelector('.showcase').classList.contains('show')){
-                            document.querySelector('.showcase').classList.add('show');
-                            gsap.to('.showcase-filter',{
-                                yPercent:-100,
-                                duration:0.2,
-                            })
-                        }
-                    }
-
-                    if(document.querySelector('.showcase').getBoundingClientRect().top > window.innerHeight - 100){
-                        if(document.querySelector('.showcase').classList.contains('show')){
-                            document.querySelector('.showcase').classList.remove('show');
-                            gsap.to('.showcase-filter',{
-                                yPercent:0,
-                                duration:0.2,
-                            })
-                        }
-                    }
-
-                    if(document.querySelector('.showcase').getBoundingClientRect().height + document.querySelector('.showcase').getBoundingClientRect().top < window.innerHeight - 100){
-                        if(document.querySelector('.showcase').classList.contains('show')){
-                            document.querySelector('.showcase').classList.remove('show');
-                            gsap.to('.showcase-filter',{
-                                yPercent:0,
-                                duration:0.2,
-                            })
-                        }
-                    }
+                if(this.isOpenDetailPage){
+                    return
                 }
-                if(this.isMobile){
-                    this.scrollY = document.querySelector('.showcase').getBoundingClientRect().top;
-                    gsap.to(this.mouse,{
-                        y: this.scrollY,
-                        duration:0.8,
-                        onUpdate: () =>{
-                            if(!this.isOpenDetailPage){
-                                this.u_offset.y = (this.mouse.y - this.scrollY)  * 0.0001;
-                                this.u_offset.x = (this.mouse.y - this.scrollY)  * 0.0001;
-                                this.delta.y = -(this.mouse.y - this.scrollY) * 0.1;
-                                this.delta.x = -(this.mouse.y - this.scrollY) * 0.2;
-                            }
-                        },
-                    });
+                const scrollValue = -document.querySelector('.showcase').getBoundingClientRect().top / document.querySelector('.showcase-figure').getBoundingClientRect().height;
+                this.inViewportTargetIndex = parseInt(scrollValue + 0.5);
+
+                if(this.inViewportTargetIndex > this.projects.length - 0.5){
+                    return
                 }
+
+                const showcaseTop = document.querySelector('.showcase').getBoundingClientRect().top
+                const showcaseHeight = document.querySelector('.showcase').getBoundingClientRect().height
+
+                if(scrollValue % 1 > 0.75 || (scrollValue % 1 < 0.25 && scrollValue % 1 > -0.25)){
+                    gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
+                        opacity:1,
+                        duration:0.4,
+                    })
+                }else{
+                    gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
+                        opacity:0.4,
+                        duration:0.4,
+                    })
+                }
+
+                if(showcaseTop < window.innerHeight - 100 && showcaseHeight + showcaseTop > window.innerHeight - 100){
+                    if(!document.querySelector('.showcase').classList.contains('show')){
+                        document.querySelector('.showcase').classList.add('show');
+                        gsap.to('.showcase-filter',{
+                            yPercent:-100,
+                            duration:0.2,
+                        })
+                    }
+                }else{
+                    document.querySelector('.showcase').classList.remove('show');
+                        gsap.to('.showcase-filter',{
+                            yPercent:0,
+                            duration:0.2,
+                        })
+                }
+
+                if(!this.isMobile){ 
+                    return
+                }
+                gsap.to(this.mouse,{
+                    y: showcaseTop,
+                    duration:0.8,
+                    onUpdate: () =>{
+                        this.u_offset.y = (this.mouse.y - showcaseTop)  * 0.0001;
+                        this.u_offset.x = (this.mouse.y - showcaseTop)  * 0.0001;
+                        this.delta.y = -(this.mouse.y - showcaseTop) * 0.1;
+                        this.delta.x = -(this.mouse.y - showcaseTop) * 0.2;
+                    },
+                });
             },
+            
             onShowcaseImageMouseOver(e){
                 this.isHovering = true;
                 this.hoveringTargetIndex = Array.from(e.target.parentElement.parentElement.children).indexOf(e.target.parentElement);
@@ -737,29 +730,27 @@
         object-fit: cover;
         object-position: center;
         left: calc(50% - 12rem);
-        top: calc(50% - 12rem);
+        top: calc(50% - 18rem);
         position: relative;
     }
     .title-content {
-        width: 20rem;
-        height: 8rem;
-        line-height: 8rem;
-        left: calc(50% - 9rem);
-        bottom: calc(50% - 11rem);
-        position: absolute;
-        margin: 0 auto;
-        color: #var(--foreground-dark-1);
-        opacity: 1;
-        font-size: 2rem;
-        pointer-events: none;
-        text-align: left;
-        will-change: transform;
         display:flex;
+        width: 24rem;
+        height: 34rem;
+        padding: 2rem;
+        left: calc(50% - 12rem);
+        top: calc(50% - 16rem);
+        position: absolute;
+        box-sizing: border-box;
+        line-height: 8rem;
+        color: var(--foreground-dark-1);
+        opacity: 1;
+
+        text-align: left;
         align-items:left;
         justify-content:flex-end;
         flex-direction:column;
         z-index: 2;
-        padding-bottom: 2rem;
         gap: 1rem;
     }
     .title-content h1{
@@ -768,11 +759,28 @@
         width: 100%;
         display: block;
         word-wrap: break-word;
+        pointer-events: none;
     }
     .title-content h2{
         font-size: 1rem;
         width: 100%;
         display: block;
+        pointer-events: none;
+    }
+    .title-content p{
+        pointer-events: none;
+    }
+
+    .hover-box{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top:0;
+        border: 1px solid var(--foreground-light-1);
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 1;
     }
 
     #showcase-canvas{
@@ -783,17 +791,5 @@
         height: 100vh;
         z-index: 0;
         pointer-events: none;
-    }
-    .hover-box{
-        width: 24rem;
-        height: 24rem;
-        position: absolute;
-        left: calc(50% - 12rem);
-        top: calc(50% - 12rem);
-        border: 1px solid var(--foreground-light-1);
-        opacity: 0.4;
-        pointer-events: none;
-        /* backdrop-filter: blur(16px); */
-        z-index: 1;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <PageContentContainer>
-        <PageInfo v-if="language=='ZH'" :title="'七是一个充满神秘的数字'" :category="this.category" :period="2022" :skills="this.skills" :tools="this.tools"></PageInfo>
-        <PageInfo v-else-if="language=='EN'" :title="'Seven is a number full of mystery'" :category="this.category" :period="2022" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo v-if="language=='ZH'" :title="'七是一个充满神秘的数字'" :category="this.category" :period="2022" :skills="this.skills" :teams="this.teams"></PageInfo>
+        <PageInfo v-else-if="language=='EN'" :title="'Seven is a number full of mystery'" :category="this.category" :period="2022" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <h2 class="fade-up-enter">
                 Scan the code by Wechat to have a try
@@ -41,7 +41,7 @@
             'category',
             'period',
             'skills',
-            'tools',
+            'teams',
             'title',
             'language'
         ],

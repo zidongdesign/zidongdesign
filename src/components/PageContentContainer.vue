@@ -25,6 +25,17 @@
                     }
                 });
             });
+            gsap.utils.toArray( '.border-top' ).forEach((e)=>{
+                gsap.from(e,{
+                width: 0,
+                duration:0.8,
+                scrollTrigger: {
+                    trigger: e,
+                    toggleActions: 'restart none none none',
+                }
+            });
+            });
+
         },
         methods:{
         }

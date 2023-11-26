@@ -2,19 +2,14 @@
     <div class="header" id="header">
         <div class="intro-locator" style="position: relative;width: 100%;height: 100%;">
             <div class="intro">
-                <img :src="require('@/assets/brand/scroll-down.svg')" alt="" id="scroll-down-icon" style="position:absolute;width: 1.5rem;height: 3rem;right: 3rem;bottom: 4rem;">
+                <p v-if="language=='ZH'" style="color: var(--foreground-dark-1);">我打造体验连接 <strong> 产品和人类，品牌和人群</strong></p>
+                <p v-else-if="language=='EN'" style="color: var(--foreground-dark-1);">I craft experience connecting <strong> product and human, brand and people</strong></p>
                 <div class="switchImg">
-                    <!-- <div class="circular">
-                        <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
-                        <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
-                    </div> -->
+                    <img :src="require('@/assets/brand/scroll-down.svg')" alt="" id="scroll-down-icon" style="position:absolute;width: 1.5rem;height: 3rem;right: -25%;bottom: 2rem;">
                 </div>
-                <h1 v-if="language=='ZH'" style="color: var(--gray1);">我致力于打造产品、交互和品牌</h1>
-                <h1 v-else-if="language=='EN'" style="color: var(--gray1);">I craft product, interaction, and branding</h1>
         </div>
         </div>
         <canvas id="header-canvas"></canvas>
-
     </div>
 
 </template>
@@ -99,9 +94,7 @@
 
                 this.switchNextImg();
                 setInterval(this.switchNextImg,6400);
-                window.addEventListener('resize',()=>{
-                    this.onResize();
-                });
+
                 this.bindListener();
             },
             setLights() {
@@ -126,7 +119,7 @@
                     this.sizes.set(width, height)
                 }
                 if (!this.offset.equals(new THREE.Vector2(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2))) {
-                    this.offset.set(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2)
+                    this.offset.set(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2 - document.querySelector("#app").scrollTop)
                 }
             },
             createMesh(image,hoverImage) {
@@ -197,7 +190,6 @@
                     }
                     this.mesh.material.uniforms.u_time.value += 0.03;
                 }
-
             },
             preload(imgs, allImagesLoadedCallback) {
                 let loadedCounter = 0;
@@ -226,11 +218,7 @@
                 this.mesh.material.uniforms.u_res.value.set(window.innerWidth, window.innerHeight);
                 this.mesh.material.uniforms.u_ratio.value = getRatio(this.sizes,this.images[this.currentIndex].image);
                 this.mesh.material.uniforms.u_hoverratio.value = getRatio(this.sizes,this.images[this.currentIndex].image);
-            },
-            bindListener(){
-                window.addEventListener('mousemove', (ev) => {
-                    this.onMouseMove(ev);
-                });
+                this.renderer.render(this.scene,this.camera);
             },
             onMouseMove(event) {
                 if(this.isMobile) return;
@@ -247,6 +235,15 @@
                     y: - tY * 0.02,
                     duration:0.8,
                     ease:Power2.easeOut
+                });
+            },
+
+            bindListener(){
+                window.addEventListener('mousemove', (ev) => {
+                    this.onMouseMove(ev);
+                });
+                window.addEventListener('resize',()=>{
+                    this.onResize();
                 });
             },
         }
@@ -268,14 +265,13 @@
     }
 
     .switchImg {
-        position: absolute;
+        position: relative;
         width: 60vw;
         height: 60vw;
         max-width: 480px;
         max-height: 480px;
-        left: 50%;
-        bottom: -15vh;
-        transform: translate(-75%,0);
+        left: -20%;
+        top: 3rem;
         z-index: 1;
         pointer-events: none;
     }
@@ -292,9 +288,19 @@
         border: 1px solid rgba(0,0,0,0.5);
         padding: 2rem;
     }
-    .intro h1{
+    .intro p{
         font-size: 2rem;
+        line-height: 1.2;
     }
+    .intro p strong{
+        color: var(--foreground-dark-1);
+    }
+
+/* @media only screen and (max-width: 480px) {
+    .intro h1{
+        font-size: 1.5rem;
+    }
+} */
 
     #header-canvas {
         position: absolute;
@@ -321,12 +327,12 @@
             transform: translate(0,0);
             opacity: 0.25;
         }
-        33%{
-            transform: translate(0,1rem);
+        20%{
+            transform: translate(0,2rem);
             opacity: 1;
         }
-        50%{
-            transform: translate(0,1rem);
+        80%{
+            transform: translate(0,2rem);
             opacity: 1;
         }
         100%{
@@ -350,6 +356,6 @@
     .circular svg { display: block; overflow: visible; }
 
     #scroll-down-icon{
-        animation: scroll-down infinite 2s;
+        animation: scroll-down infinite 4s;
     }
 </style>

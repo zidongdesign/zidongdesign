@@ -1,14 +1,12 @@
 <template>
     <div class="showcase-filter">
         <div class="wrapper">
-            <div class="showcase-filter-item selected interactive-l all" @click="changeFilter">
-                <span v-if="language == 'ZH'">全部</span>
-                <span v-else-if="language == 'EN'">All</span>
-            </div>
-            <div class="showcase-filter-item interactive-l" v-for="item in this.categories" :key = "item.id" @click="changeFilter">
+
+            <div class="showcase-filter-item interactive-l" v-for="(item, index) in this.categories" :key = "item.id" @click="changeFilter" :class="{'selected': index == 0}">
                 <span v-if="language == 'ZH'">{{item.ZH}}</span>
                 <span v-else-if="language == 'EN'">{{item.EN}}</span>
             </div>
+
             <div class="filter-selected-bar"></div>
         </div>
     </div>
@@ -32,6 +30,13 @@
                 left: document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().left,
                 width:document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().width,
             })
+            window.addEventListener('resize',()=>{
+                gsap.to('.filter-selected-bar',{
+                    left: document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().left,
+                    width:document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().width,
+                    duration:0.0,
+                });
+            })
         },
         computed:{
             projects:function(){
@@ -45,7 +50,7 @@
         },
         methods:{
             changeFilter(e){
-                const index = Array.from(e.target.parentElement.children).indexOf(e.target);
+                const index = Array.from(e.target.parentElement.children).indexOf(e.target)+1;
                 document.querySelector('.showcase-filter-item.selected').classList.remove('selected');
                 e.target.classList.add('selected');
                 gsap.to('.filter-selected-bar',{

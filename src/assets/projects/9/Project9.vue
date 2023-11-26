@@ -1,6 +1,6 @@
 <template>
         <PageContentContainer>
-            <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+            <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <div>this project is under constration</div>
         </PageSection>
@@ -19,7 +19,7 @@
             'category',
             'period',
             'skills',
-            'tools',
+            'teams',
             'title',
             'language'
         ],

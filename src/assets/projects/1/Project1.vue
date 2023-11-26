@@ -1,6 +1,6 @@
 <template>
     <PageContentContainer>
-        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <h2 class="fade-up-enter">Project No.001</h2>
             <p v-if="language=='ZH'" class="fade-up-enter">啊哈，你发现了我的 No.001 项目，这是个远古项目，古老到当我找出源文件想要翻修一下时，满屏的错误提示打消了我的念头。因此你有机会看到这个项目最原始的面目</p>
@@ -34,7 +34,7 @@
             'title',
             'language',
             'skills',
-            'tools'
+            'teams'
         ],
         methods:{
             playDarkness(){

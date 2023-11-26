@@ -82,10 +82,6 @@
             hide(){
                 document.querySelector('h1').style.filter = "url('#goo-1')";
                 this.tl.play();
-                gsap.to('.tips',{
-                    opacity:0,
-                    duration:0.4,
-                })
             }
         }
     }
@@ -111,7 +107,6 @@
         transform: translate(-50%,-50%);
         font-size: 16rem;
         color: var(--foreground-light-1);
-        font-family: NotoSerifSC-Black;
     }
     .tips{
         position: absolute;

@@ -4,6 +4,6 @@ module.exports = {
             .rule('glsl')
             .test(/\.(glsl|vs|fs)$/)
             .use('shader-loader')
-            .loader('shader-loader')
+            .loader('shader-loader');
     },
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
         <div class="v-stack" style="gap: 4rem;width: fit-content;margin: 0 auto;justify-content: center;align-items: center;">
-            <h1 style="color: var(--black);"> Thank you for stopping by</h1>
+            <h1 style="color: var(--black);text-align: center;"> Thank you for stopping by</h1>
             <div class="h-stack" style="gap: 2rem;align-items: center;">
                 <p style="color: var(--black);opacity: 0.5;"> Stay in contact: </p>
                 <LinkButton id="resume">Resume</LinkButton>

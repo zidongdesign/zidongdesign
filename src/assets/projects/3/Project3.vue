@@ -1,6 +1,6 @@
 <template>
     <PageContentContainer>
-        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <p v-if="language=='ZH'" class="fade-up-enter">懿翼是一家冰激凌生产公司，他们最新推出了一款茶味冰激凌，并希望设计新的包装</p>
             <p v-else-if="language=='EN'" class="fade-up-enter">Yiyi is an ice cream production company, they recently launched a tea flavored ice cream and want to design a new packaging</p>
@@ -32,7 +32,7 @@
             'category',
             'period',
             'title',
-            'tools',
+            'teams',
             'skills',
             'language'
         ],

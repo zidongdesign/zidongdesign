@@ -1,7 +1,7 @@
 <template>
     <PageContentContainer>
-        <PageInfo v-if="language=='ZH'" :title="'帮助居民积极准备应急物资，增强社区的风险应对能力'" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
-        <PageInfo v-else-if="language=='EN'" :title="'Help residents gear up with emergency supplies to boost community resilience'" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo v-if="language=='ZH'" :title="'帮助居民积极准备应急物资，增强社区的风险应对能力'" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
+        <PageInfo v-else-if="language=='EN'" :title="'Help residents gear up with emergency supplies to boost community resilience'" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <p v-if="language=='ZH'" class="fade-up-enter">在疫情的预防阶段，人们的危机意识弱，家庭应急物资储备不足。在预备阶段，应急物资不足的家庭更容易产生恐慌情绪导致囤积过量物资的行为，导致了市场应急物资的短缺。除此之外，社区和城市的应急准备也不够充分，进一步加剧人们的恐慌和抢购物资的心理。</p>
             <p v-else-if="language=='EN'" class="fade-up-enter">In the prevention stage of the epidemic, people's awareness of crisis is weak, and the household emergency supplies are insufficient. In the preparatory stage, families with insufficient emergency supplies are more likely to panic and hoard excess supplies, resulting in a shortage of emergency supplies in the market. In addition, the emergency preparedness of communities and cities is also insufficient, which further exacerbates people's panic and panic buying.</p>
@@ -52,7 +52,7 @@
             'category',
             'period',
             'skills',
-            'tools',
+            'teams',
             'title',
             'language'
         ],

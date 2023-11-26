@@ -1,6 +1,6 @@
 <template>
     <PageContentContainer>
-        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :tools="this.tools"></PageInfo>
+        <PageInfo :title="this.title" :category="this.category" :period="this.period" :skills="this.skills" :teams="this.teams"></PageInfo>
         <PageSection>
             <p v-if="language=='ZH'" class="fade-up-enter">一些文字创意和图形设计，灵感来源于和她的一些生活日常。</p>
             <p v-else-if="language=='EN'" class="fade-up-enter">Some text ideas and graphic designs are inspired by the daily life with her.</p>
@@ -29,7 +29,7 @@
             'title',
             'language',
             'skills',
-            'tools',
+            'teams',
         ],
         mounted(){
         }
