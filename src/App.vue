@@ -8,6 +8,7 @@
     <DetailPage ref="detailpage" @allImagesLoaded = 'detailImagesLoaded' @closeDetailPage = 'closeDetailPage' :language='this.language' :projects = 'this.projects' @changeProject="changeProject"> </DetailPage>
     <Header ref="header" @updateLoadingPercent = "updateLogoLoadingPercent" :language="this.language"></Header>
     <Showcase ref="showcase" @loadingCoverHided="loadingCoverHided" @updateLoadingPercent = "updateShowcaseLoadingPercent"  @openDetailPage = "openDetailPage" @detailPageClosed = "detailPageClosed" :language='this.language' :projects = 'this.projects' ></Showcase>
+    <!-- <QuotesAboutMe></QuotesAboutMe> -->
     <Footer :language="this.language"> </Footer>
     <ShowcaseFilter ref="showcasefilter" :language="this.language" @changeFilter="changeFilter"></ShowcaseFilter>
 
@@ -25,6 +26,9 @@
   import DetailPage from '@/components/DetailPage';
   import Footer from '@/components/Footer';
   import ShowcaseFilter from '@/components/ShowcaseFilter';
+  // import QuotesAboutMe from '@/components/QuotesAboutMe'
+
+  
   // import QRCodeCover from '@/components/QRCodeCover';
 
   import {gsap} from 'gsap'
@@ -46,6 +50,7 @@
       Footer,
       ShowcaseFilter,
       // QRCodeCover,
+      // QuotesAboutMe,
     },
     data(){
       return{

@@ -19,7 +19,7 @@
     .section {
         display: flex;
         flex-direction: column;
-        gap: 4rem;
+        gap: 2rem;
         padding-top: 2rem;
         position: relative;
     }

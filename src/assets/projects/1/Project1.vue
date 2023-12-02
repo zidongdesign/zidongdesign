@@ -5,7 +5,7 @@
             <h2 class="fade-up-enter">Project No.001</h2>
             <p v-if="language=='ZH'" class="fade-up-enter">啊哈，你发现了我的 No.001 项目，这是个远古项目，古老到当我找出源文件想要翻修一下时，满屏的错误提示打消了我的念头。因此你有机会看到这个项目最原始的面目</p>
             <p v-else-if="language=='EN'" class="fade-up-enter">Aha, you found my project No.001, which is a project so far back in time, so ancient that when I found the source file and tried to tinker with it, a screen full of error alerts dissuaded me. So here's your chance to see the project in its most pristine guise</p>
-            <video controls width="100%" :poster="require('@/assets/projects/1/details1.png')" class="fade-up-enter">
+            <video controls width="100%" :poster="require('@/assets/projects/1/details1.png')" class="fade-up-enter" style="  pointer-events: auto">
                 <source src="./details1.mp4"
                         type="video/mp4">
             </video>

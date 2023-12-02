@@ -39,7 +39,6 @@
             'teams',
             'title',
             'language',
-
         ]
     }
 </script>

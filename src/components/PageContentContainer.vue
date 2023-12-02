@@ -8,7 +8,6 @@
 <script>
     import {gsap,Power2} from "gsap";
     import {ScrollTrigger} from "gsap/ScrollTrigger";
-    
 
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.defaults({duration:0.8, ease:Power2.easeInOut,scroller:'.detail-wrapper'});
@@ -27,13 +26,13 @@
             });
             gsap.utils.toArray( '.border-top' ).forEach((e)=>{
                 gsap.from(e,{
-                width: 0,
-                duration:0.8,
-                scrollTrigger: {
-                    trigger: e,
-                    toggleActions: 'restart none none none',
-                }
-            });
+                    width: 0,
+                    duration:0.8,
+                    scrollTrigger: {
+                        trigger: e,
+                        toggleActions: 'restart none none none',
+                    }
+                });
             });
 
         },

@@ -6,8 +6,6 @@ import Project5 from '@/assets/projects/5/Project5';
 import Project6 from '@/assets/projects/6/Project6';
 import Project7 from '@/assets/projects/7/Project7';
 import Project8 from '@/assets/projects/8/Project8';
-import Project9 from '@/assets/projects/9/Project9';
-import Project10 from '@/assets/projects/10/Project10';
 
 export default {
     name: "ProjectData",
@@ -32,7 +30,7 @@ export default {
                         require('@/assets/projects/1/details5.png'),
                     ],
                     details:Project1,
-                    relatedID:[10],
+                    relatedID:[3],
                 },
                 {
                     id:2,
@@ -54,28 +52,24 @@ export default {
                         require('@/assets/projects/2/details7.png'),
                     ],
                     details:Project2,
-                    relatedID:[3]
+                    relatedID:[]
                 },
                 {
                     id:3,
-                    title: {ZH:'懿翼茶',EN:'Yiyi Tea'},
-                    period: 2019,
-                    category:{ZH:'包装设计',EN:'Packaging design'},
-                    skills:{ZH:'平面设计',EN:'Graphic design'},
+                    title: {ZH:'凑个七',EN:'Add to seven'},
+                    headline: {ZH:'七是一个充满神秘的数字',EN:'7 is a number full of mystery.'},
+                    category: {ZH:'独立游戏',EN:'Indie game'},
+                    skills:{ZH:'游戏设计 \n 交互设计 \n 用户测试',EN:'Game design \n Interaction design \n User testing'},
                     teams:{ZH:'Solo',EN:'Solo'},
+                    period: 2022,
                     categoryIndex:3,
                     dataSrc: require('@/assets/projects/3/preview.png'),
-                    dataHover: require('@/assets/projects/3/preview.png'),
                     isShowcases: true,
                     detailsImages:[
-                        require('@/assets/projects/3/details1.png'),
-                        require('@/assets/projects/3/details3.png'),
-                        require('@/assets/projects/3/details4.png'),
-                        require('@/assets/projects/3/details5.png'),
-                        require('@/assets/projects/3/details6.png'),
+                        require('@/assets/projects/3/qrcode.png'),
                     ],
                     details:Project3,
-                    relatedID:[2]
+                    relatedID:[1],
                 },
                 {
                     id:4,
@@ -192,13 +186,13 @@ export default {
 
                     ],
                     details:Project6,
-                    relatedID:[7,8,9]
+                    relatedID:[7,8]
                 },
                 {
                     id:7,
-                    title: {ZH:'Microsoft Teams Updates App',EN:'Microsoft Teams Updates App'},
+                    title: {ZH:'Microsoft Teams 汇报 App',EN:'Microsoft Teams Updates App'},
                     period: 2023,
-                    category: {ZH:'工业设计',EN:'Product design'},
+                    category: {ZH:'产品设计',EN:'Product design'},
                     skills:{ZH:'产品思维 \n 产品设计 \n 组件库管理 \n 用户测试',EN:'Product thinking \n Product design \n Components library \n User testing'},
                     teams:{ZH:'Dingyi Yu, PM,\n Yuxiang Zhou, PM,\n Sikang Li, UX designer,\n Zidong Chen, UX designer \n Updates Dev team',EN:'Dingyi Yu,\n PM, Yuxiang Zhou, PM,\n Sikang Li, UX designer,\n Zidong Chen, UX designer \n Updates Dev team'},
                     categoryIndex:1,
@@ -208,65 +202,23 @@ export default {
                         require('@/assets/projects/7/Updates in Microsoft Teams blog - Teaser image.png')
                     ],
                     details:Project7,
-                    relatedID:[6]
+                    relatedID:[6,8]
                 },
                 {
                     id:8,
-                    title: {ZH:'小仓署',EN:'Hamster'},
-                    period: 2019,
+                    title: {ZH:'Azure AI 内容安全',EN:'Azure AI Content Safety'},
+                    period: 2023,
                     category: {ZH:'产品设计',EN:'Product design'},
-                    skills:{ZH:'系统思维 \n 服务设计 \n 产品设计',EN:'System thinking \n Service design \n Product design'},
-                    teams:{ZH:'Zidong, Team lead\nXiaoyu Wang, UI design\nYidi Zhao, UI design\nPeiyi Cai, Service design',EN:'Zidong, Team lead\nXiaoyu Wang, UI design\nYidi Zhao, UI design\nPeiyi Cai, Service design'},
+                    skills:{ZH:'产品思维 \n 产品设计 \n 用户测试',EN:'Product thinking \n Product design \n User testing'},
+                    teams:{ZH:'Louise Han, PM\nRandy Winjum, UX designer\nMeltem Gurcay-Morris, UXR\nZidong, UX designer',EN:'Louise Han, PM\nRandy Winjum, UX designer\nMeltem Gurcay-Morris, UXR\nZidong, UX designer'},
                     categoryIndex:1,
                     dataSrc: require('@/assets/projects/8/preview.png'),
                     isShowcases: true,
                     detailsImages:[
-                        require('@/assets/projects/8/details1.png'),
-                        require('@/assets/projects/8/details2.png'),
-                        require('@/assets/projects/8/details3.png'),
-                        require('@/assets/projects/8/details4.png'),
-                        require('@/assets/projects/8/details5.png'),
-                        require('@/assets/projects/8/app1.png'),
-                        require('@/assets/projects/8/app2.png'),
-                        require('@/assets/projects/8/app3.png'),
-                        require('@/assets/projects/8/app4.png'),
-                        require('@/assets/projects/8/app5.png'),
-                        require('@/assets/projects/8/app6.png'),
+                        require('@/assets/projects/8/ignite.png'),
                     ],
                     details:Project8,
-                    relatedID:[9,6]
-                },
-                {
-                    id:9,
-                    title: {ZH:'Azure 内容安全',EN:'Azure Content Safety'},
-                    period: 2023,
-                    category: {ZH:'产品设计',EN:'Product design'},
-                    skills:{ZH:'产品设计 \n 用户测试',EN:'Product design \n User testing'},
-                    teams:{ZH:'Louise Han, PM\nRandy Winjum, UX designer\nMeltem Gurcay-Morris, User researcher\nZidong, UX designer',EN:'Figma'},
-                    categoryIndex:1,
-                    dataSrc: require('@/assets/projects/9/preview.png'),
-                    isShowcases: true,
-                    detailsImages:[
-                    ],
-                    details:Project9,
-                    relatedID:[8,6],
-                },
-                {
-                    id:10,
-                    title: {ZH:'凑个七',EN:'Add to seven'},
-                    headline: {ZH:'七是一个充满神秘的数字',EN:'7 is a number full of mystery.'},
-                    category: {ZH:'独立游戏',EN:'Indie game'},
-                    skills:{ZH:'游戏设计 \n 交互设计 \n 用户测试',EN:'Game design \n Interaction design \n User testing'},
-                    teams:{ZH:'Figma \n Wechat developer teams',EN:'Figma \n Wechat developer teams'},
-                    period: 2022,
-                    categoryIndex:3,
-                    dataSrc: require('@/assets/projects/10/preview.png'),
-                    isShowcases: true,
-                    detailsImages:[
-                        require('@/assets/projects/10/qrcode.png'),
-                    ],
-                    details:Project10,
-                    relatedID:[1],
+                    relatedID:[6,7],
                 },
             ],
             projectCategories:[

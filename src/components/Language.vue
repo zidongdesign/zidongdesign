@@ -38,8 +38,8 @@
                     ease:Power2.easeInOut,
                     onComplete:()=>{
                         this.$emit('switchLanguage');
-                        setInterval(function () {
-                            gsap.to('.filter-changing-cover',{
+                        setTimeout(function () {
+                            gsap.to('.filter-selected-bar',{
                                 left: document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().left,
                                 width:document.querySelector('.showcase-filter-item.selected').getBoundingClientRect().width,
                                 duration:0.1,

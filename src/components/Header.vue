@@ -2,14 +2,21 @@
     <div class="header" id="header">
         <div class="intro-locator" style="position: relative;width: 100%;height: 100%;">
             <div class="intro">
-                <p v-if="language=='ZH'" style="color: var(--foreground-dark-1);">我打造体验连接 <strong> 产品和人类，品牌和人群</strong></p>
-                <p v-else-if="language=='EN'" style="color: var(--foreground-dark-1);">I craft experience connecting <strong> product and human, brand and people</strong></p>
+                <!-- <img :src="require('@/assets/brand/scroll-down.svg')" alt="" id="scroll-down-icon" style="position:absolute;width: 1.5rem;height: 3rem;right: 3rem;bottom: 4rem;"> -->
+                <p v-if="language=='ZH'" style="color: var(--foreground-dark-1);letter-spacing: 0.2rem;line-height: 3rem;">我致力于打造体验来连接 <strong> 产品与用户、品牌与人群</strong></p>
+                <p v-else-if="language=='EN'" style="color: var(--foreground-dark-1);">I craft experience connecting <strong> product with users, brand with crowd</strong></p>
+
                 <div class="switchImg">
-                    <img :src="require('@/assets/brand/scroll-down.svg')" alt="" id="scroll-down-icon" style="position:absolute;width: 1.5rem;height: 3rem;right: -25%;bottom: 2rem;">
+                    <!-- <div class="circular">
+                        <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
+                        <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
+                    </div> -->
                 </div>
+
         </div>
         </div>
         <canvas id="header-canvas"></canvas>
+
     </div>
 
 </template>
@@ -94,7 +101,6 @@
 
                 this.switchNextImg();
                 setInterval(this.switchNextImg,6400);
-
                 this.bindListener();
             },
             setLights() {
@@ -119,7 +125,7 @@
                     this.sizes.set(width, height)
                 }
                 if (!this.offset.equals(new THREE.Vector2(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2))) {
-                    this.offset.set(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2 - document.querySelector("#app").scrollTop)
+                    this.offset.set(left -  window.innerWidth / 2 + width / 2, -top + window.innerHeight / 2 - height / 2)
                 }
             },
             createMesh(image,hoverImage) {
@@ -190,6 +196,7 @@
                     }
                     this.mesh.material.uniforms.u_time.value += 0.03;
                 }
+
             },
             preload(imgs, allImagesLoadedCallback) {
                 let loadedCounter = 0;
@@ -220,11 +227,14 @@
                 this.mesh.material.uniforms.u_hoverratio.value = getRatio(this.sizes,this.images[this.currentIndex].image);
                 this.renderer.render(this.scene,this.camera);
             },
+
             onMouseMove(event) {
-                if(this.isMobile) return;
+                if(this.isMobile) {
+                    return false
+                }
                 const tX = event.clientX;
                 const tY = event.clientY;
-                gsap.to(document.querySelector('.intro-locator'), {
+                gsap.to(document.querySelector('.intro'), {
                     x: tX * 0.03,
                     y: tY * 0.02,
                     duration:0.8,
@@ -237,7 +247,6 @@
                     ease:Power2.easeOut
                 });
             },
-
             bindListener(){
                 window.addEventListener('mousemove', (ev) => {
                     this.onMouseMove(ev);
@@ -264,14 +273,19 @@
         margin: 0;
     }
 
+    .intro-locator{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .switchImg {
         position: relative;
         width: 60vw;
         height: 60vw;
         max-width: 480px;
         max-height: 480px;
-        left: -20%;
-        top: 3rem;
+        left: -4rem;
+        top: 2rem;
         z-index: 1;
         pointer-events: none;
     }
@@ -281,26 +295,18 @@
         height: 60vw;
         max-width: 480px;
         max-height: 480px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-60%);
-        border: 1px solid rgba(0,0,0,0.5);
+        position: relative;
+        border: 1px solid var(--foreground-dark-4);
         padding: 2rem;
     }
     .intro p{
         font-size: 2rem;
-        line-height: 1.2;
-    }
-    .intro p strong{
-        color: var(--foreground-dark-1);
+        line-height: 2.4rem;
     }
 
-/* @media only screen and (max-width: 480px) {
-    .intro h1{
-        font-size: 1.5rem;
+    .intro strong{
+        color: var(--foreground-dark-1);
     }
-} */
 
     #header-canvas {
         position: absolute;
@@ -327,12 +333,12 @@
             transform: translate(0,0);
             opacity: 0.25;
         }
-        20%{
-            transform: translate(0,2rem);
+        33%{
+            transform: translate(0,1rem);
             opacity: 1;
         }
-        80%{
-            transform: translate(0,2rem);
+        50%{
+            transform: translate(0,1rem);
             opacity: 1;
         }
         100%{
@@ -356,6 +362,6 @@
     .circular svg { display: block; overflow: visible; }
 
     #scroll-down-icon{
-        animation: scroll-down infinite 4s;
+        animation: scroll-down infinite 2s;
     }
 </style>

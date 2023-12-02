@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue/runtime-dom": "^3.3.9",
     "core-js": "^3.6.5",
     "dat.gui": "^0.7.7",
     "glsl-noise": "*",

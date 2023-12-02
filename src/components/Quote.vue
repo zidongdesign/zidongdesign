@@ -1,5 +1,5 @@
 <template>
-    <div class="quote">
+    <div class="quote fade-up-enter">
         <div class="h-stack" style="align-items: center;gap: 0.5rem;">
             <img v-if="avatar!=null" :src="this.avatar" alt="" class="avatar">
             <div v-else-if="avatar==null" class="avatar" style="display: flex; align-items: center;justify-content: center;color: var(--foreground-light-1);font-size: 1rem;border: 1px solid var(--foreground-light-4);padding-bottom: 2px;box-sizing: border-box;">{{firstCharacter}}</div>

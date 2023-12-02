@@ -35,12 +35,13 @@
             <p v-else-if="language=='EN'" class="fade-up-enter">Based on these three design opportunities, we brainstormed, analyzed through affinity diagrams and "feasibility-importance" matrices to get the final target concepts.</p>
             <img :src="require('@/assets/projects/6/sprint1.png')" alt="" class="fade-up-enter" style="pointer-events: none;">
 
-            <h3 v-if="language=='ZH'" class="fade-up-enter">价值宣言</h3>
-            <h3 v-else-if="language=='EN'" class="fade-up-enter">Value proposition</h3>
-            <p v-if="language=='ZH'" class="fade-up-enter"> 通过整合 RaceFit 的核心产品和技术，打造结合软件、硬件和人工智能的完整解决方案,为用户提供了全新的<strong>专业的、智能的、有趣的 </strong>健身体验</p>
-            <p v-else-if="language=='EN'" class="fade-up-enter">By integrating RaceFit's core products and technologies to create a complete solution that combines software, hardware and artificial intelligence, it provides users with a new professional, intelligent and fun fitness experience.</p>
-            <img v-if="language=='ZH'" :src="require('@/assets/projects/6/details2.svg')" alt="" class="fade-up-enter" id="details2">
-            <img v-else-if="language=='EN'" :src="require('@/assets/projects/6/details2-EN.svg')" alt="" class="fade-up-enter" id="details2">
+            <ValueProposition :language="this.language">
+                <p v-if="language=='ZH'" class=""> 通过整合 RaceFit 的核心产品和技术，打造结合软件、硬件和人工智能的完整解决方案,为用户提供了全新的<strong>专业的、智能的、有趣的 </strong>健身体验</p>
+                <p v-else-if="language=='EN'" class="">By integrating RaceFit's core products and technologies to create a complete solution that combines software, hardware and artificial intelligence, it provides users with a new professional, intelligent and fun fitness experience.</p>
+                <img v-if="language=='ZH'" :src="require('@/assets/projects/6/details2.svg')" alt="" class="" id="details2">
+                <img v-else-if="language=='EN'" :src="require('@/assets/projects/6/details2-EN.svg')" alt="" class="" id="details2">
+            </ValueProposition>
+            
         </PageSection>
         <PageSection>
             <h2 v-if="language=='ZH'" class="fade-up-enter">设计师不仅仅是画图的</h2>

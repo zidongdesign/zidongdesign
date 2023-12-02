@@ -391,8 +391,8 @@
                     ease:Power2.easeInOut,
                     duration:0.8,
                 });
-                this.isHovering = false;
-                this.isOpenDetailPage = false;
+                // this.isHovering = false;
+                // this.isOpenDetailPage = false;
                 gsap.to(document.querySelectorAll('.showcase-image')[this.clickTargetIndex],{
                     duration:0.8,
                     width:'24rem',
@@ -494,35 +494,31 @@
                 if(this.isHovering) {
                     this.meshes[this.hoveringTargetIndex].material.uniforms.u_time.value += 0.03;
                 }
-                if(!this.isChangingFilter){
-                    if(!this.isOpenDetailPage ){
-                        for (let i=0;i< this.projects.length;i++){
-                            if(!(this.meshes[i].position.x === this.offset.x +  this.delta.x + this.offset.y
-                                && this.meshes[i].position.y === this.offset.y + this.delta.y)
-                            ){
-                                this.getBounds(document.querySelectorAll('.showcase-image')[i]);
-                                gsap.to(this.meshes[i].position,{
-                                    x:this.offset.x +  this.delta.x + this.offset.y,
-                                    y:this.offset.y + this.delta.y,
-                                    duration:0.2,
-                                });
-                            }
-                        }
-                    }
-                    else {
-                        for (let i=0;i< this.projects.length;i++){
-                            if(!(this.meshes[i].position.x === this.offset.x + this.delta.x
-                                &&this.meshes[i].position.y === this.offset.y + this.delta.y)
-                            ){
-                                this.getBounds(document.querySelectorAll('.showcase-image')[i]);
-                                gsap.to(this.meshes[i].position,{
-                                    x:this.offset.x,
-                                    y:this.offset.y
-                                });
-                            }
-                        }
-                    }
+                if(this.isChangingFilter){ 
+                    return false
                 }
+                for (let i=0;i< this.projects.length;i++){
+                    this.getBounds(document.querySelectorAll('.showcase-image')[i]);
+                    gsap.to(this.meshes[i].position,{
+                        x:this.offset.x +  this.delta.x + this.offset.y,
+                        y:this.offset.y + this.delta.y,
+                        duration:0.4,
+                    });
+                }
+
+                // if(!this.isOpenDetailPage ){
+
+                // }
+                // else {
+                //     for (let i=0;i< this.projects.length;i++){
+                //         this.getBounds(document.querySelectorAll('.showcase-image')[i]);
+                //         gsap.to(this.meshes[i].position,{
+                //             x:this.offset.x,
+                //             y:this.offset.y
+                //         });
+                //     }
+                // }
+
             },
             preload(projects, allImagesLoadedCallback) {
 
