@@ -234,7 +234,7 @@
                 }
                 const tX = event.clientX;
                 const tY = event.clientY;
-                gsap.to(document.querySelector('.intro'), {
+                gsap.to(document.querySelector('.intro-locator'), {
                     x: tX * 0.03,
                     y: tY * 0.02,
                     duration:0.8,
@@ -296,6 +296,7 @@
         max-width: 480px;
         max-height: 480px;
         position: relative;
+        transform: translate(0,-10%);
         border: 1px solid var(--foreground-dark-4);
         padding: 2rem;
     }
