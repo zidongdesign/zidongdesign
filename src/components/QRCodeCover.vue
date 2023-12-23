@@ -54,7 +54,7 @@
         cursor: default;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width:var(--bk-m)) {
         .qr-code-cover{
             display: none;
         }

@@ -283,10 +283,6 @@
                         y: 0,
                         duration:0.8,
                     });
-                    gsap.to('.hover-box',{
-                        opacity:0,
-                        duration:0.4,
-                    });
                 }
             },
             openDetailPage(e){
@@ -366,10 +362,6 @@
                         y: 0,
                         duration:0.8,
                     });
-                    gsap.to('.hover-box',{
-                        opacity:0,
-                        duration:0.4,
-                    });
                 }
             },
             closeDetailPage(){
@@ -433,10 +425,6 @@
                     ease: "none", // Power1.easeInOut
                     opacity: 1,
                 });
-                gsap.to(document.querySelectorAll('.hover-box')[this.inViewportTargetIndex],{
-                    opacity:1,
-                    duration:0.4,
-                })
             },
             hideTitle(){
                 gsap.to('.title-content', {
@@ -444,10 +432,6 @@
                     ease: "none", // Power1.easeInOut
                     opacity: 0,
                 })
-                gsap.to('.hover-box',{
-                    opacity:0,
-                    duration:0.4,
-                });
             },
             changeFilter(e){
                 setTimeout(()=> {
@@ -612,7 +596,7 @@
                     })
                 }
 
-                if(showcaseTop < window.innerHeight - 100 && showcaseHeight + showcaseTop > window.innerHeight - 100){
+                if(showcaseTop < window.innerHeight - 10 && showcaseHeight + showcaseTop > window.innerHeight - 10){
                     if(!document.querySelector('.showcase').classList.contains('show')){
                         document.querySelector('.showcase').classList.add('show');
                         gsap.to('.showcase-filter',{

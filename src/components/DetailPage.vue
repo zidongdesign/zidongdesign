@@ -270,7 +270,7 @@
     }
     .intro-wrapper{
         width: 100%;
-        max-width: 768px;
+        max-width: var(--bk-m);
         margin: 0 auto;
         height: 100vh;
         position: relative;
@@ -315,7 +315,7 @@
         mix-blend-mode:difference;
         pointer-events: none;
         word-break: keep-all;
-        padding-bottom: 2px;
+        /* padding-bottom: 2px; */
     }
     .details-background {
         width: 100%;

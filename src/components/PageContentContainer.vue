@@ -47,7 +47,7 @@
         margin: 0 auto;
         color: var(--foreground-light-1);
         width: 100%;
-        max-width: 768px;
+        max-width: var(--bk-m);
         position: relative;
         box-sizing: border-box;
         display: flex;

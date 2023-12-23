@@ -40,7 +40,7 @@
         color: var(--foreground-light-1);
         border-left: 2px var(--foreground-light-4) solid ;
         padding: 0 1rem;
-        min-width: 240px;
+        min-width: 360px;
     }
     .avatar{
         width: 2rem;

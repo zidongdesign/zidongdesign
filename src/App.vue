@@ -8,7 +8,7 @@
     <DetailPage ref="detailpage" @allImagesLoaded = 'detailImagesLoaded' @closeDetailPage = 'closeDetailPage' :language='this.language' :projects = 'this.projects' @changeProject="changeProject"> </DetailPage>
     <Header ref="header" @updateLoadingPercent = "updateLogoLoadingPercent" :language="this.language"></Header>
     <Showcase ref="showcase" @loadingCoverHided="loadingCoverHided" @updateLoadingPercent = "updateShowcaseLoadingPercent"  @openDetailPage = "openDetailPage" @detailPageClosed = "detailPageClosed" :language='this.language' :projects = 'this.projects' ></Showcase>
-    <!-- <QuotesAboutMe></QuotesAboutMe> -->
+    <!-- <QuotesAboutMe :language="this.language"></QuotesAboutMe> -->
     <Footer :language="this.language"> </Footer>
     <ShowcaseFilter ref="showcasefilter" :language="this.language" @changeFilter="changeFilter"></ShowcaseFilter>
 
@@ -27,9 +27,6 @@
   import Footer from '@/components/Footer';
   import ShowcaseFilter from '@/components/ShowcaseFilter';
   // import QuotesAboutMe from '@/components/QuotesAboutMe'
-
-  
-  // import QRCodeCover from '@/components/QRCodeCover';
 
   import {gsap} from 'gsap'
   import {ScrollTrigger} from "gsap/ScrollTrigger";

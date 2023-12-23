@@ -1,19 +1,24 @@
 <template>
     <div class="header" id="header">
-        <div class="intro-locator" style="position: relative;width: 100%;height: 100%;">
-            <div class="intro">
-                <!-- <img :src="require('@/assets/brand/scroll-down.svg')" alt="" id="scroll-down-icon" style="position:absolute;width: 1.5rem;height: 3rem;right: 3rem;bottom: 4rem;"> -->
-                <p v-if="language=='ZH'" style="color: var(--foreground-dark-1);letter-spacing: 0.2rem;line-height: 3rem;">我致力于打造体验来连接 <strong> 产品与用户、品牌与人群</strong></p>
-                <p v-else-if="language=='EN'" style="color: var(--foreground-dark-1);">I craft experience connecting <strong> product with users, brand with crowd</strong></p>
-
-                <div class="switchImg">
-                    <!-- <div class="circular">
-                        <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
-                        <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
-                    </div> -->
+        <div class="header-wrapper">
+            <div class="intro h-stack" style="justify-content: flex-start;align-items: flex-start;">
+                <div class="v-stack" style="flex: 1 1 0;">
+                    <h1 v-if="language=='ZH'" style="color: var(--foreground-dark-1);flex: 1 1 0;min-width: fit-content; width: fit-content;">嗨！我是子东</h1>
+                    <h1 v-else-if="language=='EN'" style="color: var(--foreground-dark-1);flex: 1 1 0;min-width: fit-content; width: fit-content;"> Hi! I'm Zidong</h1>
+                    <p v-if="language=='ZH'" style="color: var(--foreground-dark-1);line-height: 1.2;flex: 1 1 0;font-size: 2rem;min-width: 240px;">我致力于打造数字化体验，连接产品和用户，品牌和人群</p>
+                    <p v-else-if="language=='EN'" style="color: var(--foreground-dark-1);line-height:1.2;flex: 1 1 0;font-size: 2rem;min-width: 240px;">I craft digital experience, connecting product with users, brand with crowd</p>
                 </div>
-
-        </div>
+                <div class="h-stack" style="justify-content: flex-start;width: fit-content;gap: 2rem;">
+                    <span style="color: var(--foreground-dark-1);font-size: 0.75rem;width: fit-content;">Beijing / Guangdong</span>
+                    <span style="color: var(--foreground-dark-1);font-size: 0.75rem;width: fit-content;">Microsoft</span>
+                </div>
+            </div>
+            <div class="switchImg">
+                <!-- <div class="circular">
+                    <img :src="require('@/assets/brand/intro_zh.svg')" alt="" v-if="language=='ZH'">
+                    <img :src="require('@/assets/brand/intro_en.svg')" alt="" v-else-if="language=='EN'">
+                </div> -->
+            </div>
         </div>
         <canvas id="header-canvas"></canvas>
 
@@ -194,7 +199,7 @@
                     if(this.mesh.material.uniforms.u_time.value>100){
                         this.mesh.material.uniforms.u_time.value = 0;
                     }
-                    this.mesh.material.uniforms.u_time.value += 0.03;
+                    this.mesh.material.uniforms.u_time.value += 0.01;
                 }
 
             },
@@ -234,7 +239,7 @@
                 }
                 const tX = event.clientX;
                 const tY = event.clientY;
-                gsap.to(document.querySelector('.intro-locator'), {
+                gsap.to(document.querySelector('.header-wrapper'), {
                     x: tX * 0.03,
                     y: tY * 0.02,
                     duration:0.8,
@@ -248,9 +253,9 @@
                 });
             },
             bindListener(){
-                window.addEventListener('mousemove', (ev) => {
-                    this.onMouseMove(ev);
-                });
+                // window.addEventListener('mousemove', (ev) => {
+                //     this.onMouseMove(ev);
+                // });
                 window.addEventListener('resize',()=>{
                     this.onResize();
                 });
@@ -273,38 +278,36 @@
         margin: 0;
     }
 
-    .intro-locator{
+    .header-wrapper{
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: flex-start;
         align-items: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 12rem 2rem 0 2rem;
+        gap: 2rem;
+        box-sizing: border-box;
+        max-width: var(--bk-l);
+        margin: 0 auto;
     }
     .switchImg {
-        position: relative;
-        width: 60vw;
-        height: 60vw;
-        max-width: 480px;
-        max-height: 480px;
-        left: -4rem;
-        top: 2rem;
+        flex: 1 0 0;
+        align-self: stretch;
         z-index: 1;
         pointer-events: none;
+        width: 100%;
     }
 
     .intro{
-        width: 60vw;
-        height: 60vw;
-        max-width: 480px;
-        max-height: 480px;
-        position: relative;
-        transform: translate(0,-10%);
-        border: 1px solid var(--foreground-dark-4);
-        padding: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        width: 100%;
+        align-items: baseline;
     }
-    .intro p{
-        font-size: 2rem;
-        line-height: 2.4rem;
-    }
-
     .intro strong{
         color: var(--foreground-dark-1);
     }

@@ -30,8 +30,9 @@
         height: fit-content;
         box-sizing: content-box;
         position: relative;
+        font-size: 3rem;
     }
-    p.label{
+    .label{
         position: absolute;
         height: 2rem;
         left: 50%;
@@ -39,5 +40,6 @@
         padding: 0 1rem;
         transform: translate(-50%,2px);
         background-color: var(--background-dark);
+        
     }
 </style>

@@ -93,7 +93,7 @@
     }
     .wrapper {
         width: 100%;
-        max-width: 768px;
+        max-width: var(--bk-m);
         display: flex;
         flex-direction: row;
         justify-content: space-between;

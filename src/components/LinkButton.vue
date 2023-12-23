@@ -1,6 +1,6 @@
 <template>
     <div class="interactive-l linkbutton">
-        <span style="opacity: 1; padding-bottom:2px;"><slot></slot></span>
+        <span style="opacity: 1;"><slot></slot></span>
         <img :src="require('@/assets/brand/open-new-window.svg')" alt="">
     </div>
 </template>
